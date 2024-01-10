@@ -1,0 +1,51 @@
+<mxfile host="app.diagrams.net" modified="2023-12-05T14:29:34.352Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0" etag="FbQEbHN6bMvUbBXIXZFl" version="22.1.5" type="device">
+  <diagram name="Page-1" id="4__kyFHjfD1qexIiBQ16">
+    <mxGraphModel dx="2411" dy="675" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="583" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;HEADER (Nimi)&lt;br&gt;&lt;br&gt;Linkit&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="-560" y="10" width="540" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-2" value="&lt;p style=&quot;line-height: 120%;&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Pääasiallinen sisältölaatikko joka vaihtuu linkistä&lt;/b&gt;&lt;/p&gt;Sisällöt = Info, Portfolio, Interest, Contact&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Kokomääreet ja marginit kaikkialla prosentteina tai display: flexin kautta&lt;br&gt;&lt;br&gt;Huomioidaan alle 600px näyttöikkunat erikseen&lt;br&gt;&lt;p&gt;&lt;/p&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#bac8d3;strokeColor=#23445d;" vertex="1" parent="1">
+          <mxGeometry x="-510" y="172" width="440" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-7" value="Margin 1%" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;" edge="1" parent="1">
+          <mxGeometry x="-0.2" y="-28" width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="-583" y="140" as="sourcePoint" />
+            <mxPoint x="-533" y="140" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-8" value="LINKIT:&lt;br&gt;INFO | PORTFOLIO | INTERESTS | CONTACT" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#2385E7;strokeColor=#9673a6;fillStyle=auto;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="-431" y="80" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-9" value="Margin 1%" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;" edge="1" parent="1">
+          <mxGeometry x="-0.0571" y="-28" width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="-50" y="140" as="sourcePoint" />
+            <mxPoint y="140" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-11" value="Pääsisältölaatikon sisällä voi olla erilaisia uusia sisältöelementtejä" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="-450" y="190" width="141" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-12" value="Pienet footer-tiedot&lt;br&gt;Linkki Contact-osioon" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="-411" y="780" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-14" value="Koko sivun taustalla&lt;br&gt;iso kuva" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.multi-document;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-370" y="630" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-16" value="Desktopissa laatikot gridissä sekä vierekkäin, että päälekkäin" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="-270" y="190" width="141" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-17" value="Mobiilissa laatikot vain päällekkäin, keskitetysti" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="-450" y="290" width="141" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="26PtZeHGOYnk7NXzLJqX-18" value="Laatikot toimivat linkkeinä, tai voivat olla kuvien containereita" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="-270" y="290" width="141" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
