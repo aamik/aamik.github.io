@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2a82b065.css",
+    "main.js": "/static/js/main.5c63ec1d.js",
+    "static/js/453.1407b060.chunk.js": "/static/js/453.1407b060.chunk.js",
+    "static/media/trek_big.png": "/static/media/trek_big.d89af79fbb12e5bd850f.png",
+    "static/media/ski_big.png": "/static/media/ski_big.c81417b9a1772dfcc422.png",
+    "static/media/bike_big.png": "/static/media/bike_big.555858c19cf16b85feb5.png",
+    "static/media/trek_small.png": "/static/media/trek_small.ab4daa0c328853f5078a.png",
+    "static/media/badm_big.jpg": "/static/media/badm_big.6d818a023b0033628699.jpg",
+    "static/media/bike_small.png": "/static/media/bike_small.107270aa90df39c737ea.png",
+    "static/media/ski_small.png": "/static/media/ski_small.851a4578763e673f50e4.png",
+    "static/media/italy_big.jpg": "/static/media/italy_big.4c8777f1fc4d681f25c0.jpg",
+    "static/media/italy_small.jpg": "/static/media/italy_small.f2f40660ec8225bcd50f.jpg",
+    "static/media/monitor2.png": "/static/media/monitor2.c7ff9821596162d9cd1d.png",
+    "static/media/badm_small.jpg": "/static/media/badm_small.fee3597de27955012c1e.jpg",
+    "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/index.html",
+    "main.2a82b065.css.map": "/static/css/main.2a82b065.css.map",
+    "main.5c63ec1d.js.map": "/static/js/main.5c63ec1d.js.map",
+    "453.1407b060.chunk.js.map": "/static/js/453.1407b060.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2a82b065.css",
+    "static/js/main.5c63ec1d.js"
+  ]
+}
