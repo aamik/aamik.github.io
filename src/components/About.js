@@ -8,8 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 /* Importing like this makes building easier */
 import badmBig from "../images/badm_big.jpg";
 import badmSmall from "../images/badm_small.jpg";
-import italyBig from "../images/italy_big.jpg";
-import italySmall from "../images/italy_small.jpg";
+import italyBig from "../images/coffee_big.png";
+import italySmall from "../images/coffee_small.png";
 import bikeBig from "../images/bike_big.png";
 import bikeSmall from "../images/bike_small.png";
 import skiBig from "../images/ski_big.png";
