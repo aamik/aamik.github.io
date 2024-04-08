@@ -34,9 +34,17 @@
 
     <script>
         (function () {
+            // Check if the URL has a path
+            if (location.pathname !== '/') {
+                // Store the original URL in sessionStorage
+                sessionStorage.redirect = location.href;
+            }
+
+            // Check if there's a stored URL in sessionStorage
             var redirect = sessionStorage.redirect;
             delete sessionStorage.redirect;
-            if (redirect && redirect != location.href) {
+            if (redirect && redirect !== location.href) {
+                // Replace the current URL with the stored URL
                 history.replaceState(null, null, redirect);
             }
         })();
