@@ -1,0 +1,141 @@
+@import '../helpers/variables';
+@import '../helpers/mixins';
+@import '../base/typography';
+
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  background-color: $primary-color;
+}
+
+.navbar-toggle-container {
+  width: 100%;
+  height: 56px;
+  background-color: $primary-color;
+  animation-duration: 0.04s;
+  animation-name: textflicker;
+  animation-iteration-count: 120;
+  animation-direction: alternate;
+  color: $secondary-color;
+  @include box-shadow;
+}
+
+.navbar-toggle-container h2 {
+  margin-left: 120px;
+  font-family: $secondary-font;
+  font-size: $secondary-font-size;
+  line-height: 1.2;
+  letter-spacing: 0.3em;
+  font-variant: $secondary-font-variant;
+}
+
+.navbar-toggler.custom-toggler {
+  color: rgba($secondary-color, 0.1);
+  background-color: $primary-color;
+  border-color: rgba($secondary-color, 0.4);
+}
+
+.navbar-custom {
+  width: $navbar-width;
+  height: 100vh;
+  padding-bottom: 40px;
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  transform: translateX(-100%);
+  background-color: $primary-color;
+  @include box-shadow;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navbar-custom.open {
+  display: flex;
+}
+
+.navbar-custom .copyright {
+  position: sticky;
+  bottom: 1%;
+  width: 100%;
+  text-align: center;
+  color: white;
+  padding: 10px 0;
+  font-size: 0.7em;
+  color: $secondary-color;
+}
+
+.navbar-custom a {
+  color: $secondary-color;
+  font-family: $primary-font;
+  text-decoration: none;
+  font-size: 1.2em;
+  margin: 0.5em 0;
+}
+
+.navbar-custom a:hover,
+.navbar-custom a:active {
+  color: white;
+  display: inline;
+  text-decoration: none;
+}
+
+.navbar-custom a .nav-text {
+  margin-left: 4px;
+  display: none;
+}
+
+.navbar-custom a:hover .nav-text,
+.navbar-custom a.active .nav-text {
+  display: inline;
+  animation: textflicker 0.02s infinite alternate;
+  color: white;
+}
+
+@media (max-width: 992px) {
+  .navbar-custom {
+    width: $navbar-width;
+    transform: translateX(-100%);
+    display: flex;
+  }
+
+  .navbar-custom.open {
+    transform: translateX(0);
+  }
+
+  .navbar-custom + .main-content {
+    width: 100%;
+  }
+
+  .navbar-custom.open + .main-content {
+    width: calc(100% - $navbar-width);
+  }
+
+  .navbar-toggle-container h2 {
+    margin-left: 5px;
+  }
+
+  .navbar-custom a .nav-text {
+    display: none;
+  }
+
+  .navbar-custom a:hover .nav-text {
+    display: inline;
+    animation: textflicker 0.02s infinite alternate;
+    color: white;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-custom {
+    transform: translateX(0);
+    display: flex;
+  }
+}
+
+@include textflicker;

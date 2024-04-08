@@ -1,0 +1,63 @@
+@import '../helpers/variables';
+@import '../helpers/mixins';
+@import '../base/typography';
+
+.fade-in-card {
+  opacity: 0;
+  @include fadeinAnimation; 
+  animation: $fade-in-animation;
+  background: $background-gradient;
+  border: 1px solid $border-color;
+  color: $secondary-color;
+  @include box-shadow;
+  border-radius: 10px; 
+  text-shadow: $text-shadow; 
+}
+
+.fade-in-card .card-title,
+.fade-in-card .card-text {
+  color: $secondary-color;
+  padding: 5px;
+}
+
+.fade-in-card a {
+  color: rgba($hover-color, 0.7); 
+}
+
+.fade-in-card a:hover {
+  color: $hover-color; 
+}
+
+.imagesection h2 {
+  color: white;
+  margin: auto;
+  animation-name: fadeIn;
+  animation-delay: 3s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  @include fadeInWithOverlay;
+  
+}
+
+.image-row {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  animation-name: fadeIn;
+  animation-delay: 3s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  @include fadeInWithOverlay;
+}
+
+.image-row img {
+  width: 80%;
+  max-width: 180px;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

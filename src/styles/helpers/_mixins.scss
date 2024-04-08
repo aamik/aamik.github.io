@@ -1,0 +1,71 @@
+@mixin box-shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+@mixin textflicker {
+    @keyframes textflicker {
+        from {
+        text-shadow: 1px 0 0 #ea36af, -2px 0 0 #75fa69;
+        }
+        to {
+        text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
+        }
+    }
+}
+
+@mixin fadeinAnimation {
+  @keyframes fade-in { // change the animation name to 'fade-in'
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+}
+
+@mixin fadeInWithOverlay($delay: 0s) {
+  animation: fadeIn $delay 1s forwards, showOverlay $delay 1s 1s forwards;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes showOverlay {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin gradient-background {
+    background: linear-gradient(
+      to bottom right,
+      #333,
+      rgba(0, 71, 0, 0.05)
+    );
+  }
+  
+  @mixin text-shadow {
+    text-shadow: 2px 2px 4px #000000;
+  }
+  
+  @mixin rounded-borders {
+    border-radius: 10px;
+  }
+  
+  @mixin subtle-gradient-background {
+    background: linear-gradient(
+      to bottom right,
+      #333,
+      rgba(1, 210, 1, 0.03)
+    );
+  }

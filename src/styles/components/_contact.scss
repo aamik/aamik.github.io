@@ -1,0 +1,68 @@
+@import '../helpers/variables';
+@import '../helpers/mixins';
+@import '../base/typography';
+
+.fade-in-card {
+  opacity: 0;
+  @include fadeinAnimation; // include the animation mixin
+  animation: $fade-in-animation;
+  @include box-shadow;
+  @include subtle-gradient-background;
+  border: 1px solid $border-color;
+  color: $primary-color;
+  text-shadow: $text-shadow;
+}
+
+.square-card {
+  width: 65%;
+  height: 85px;
+  margin: 20px 10px;
+  @include box-shadow;
+}
+
+.form-card {
+  opacity: 0; // Start with the form hidden
+  @include fadeinAnimation; // include the animation mixin
+  animation: $fade-in-animation;
+  width: 78%;
+  height: auto;
+  margin: 10px;
+  border: 1px solid $border-color;
+  background-color: $primary-color; // Add this line
+  @include subtle-gradient-background; // Add this line
+  @include box-shadow;
+
+  // Add color properties for form elements
+  input, textarea {
+    background-color: $primary-color;
+    color: $secondary-color;
+
+    &::placeholder { // Change color of placeholder text
+      color: $secondary-color;
+    }
+  }
+
+  button {
+    background-color: $primary-color;
+    color: $hover-color;
+    border: $primary-color;
+
+    &:hover { // Corrected hover selector
+      background-color: $secondary-color; 
+      color: $primary-color; 
+    }
+  }
+
+  .text-muted { // Use !important to override other rules
+    color: $secondary-color !important;
+  }
+
+  .form-label { // Change color of form labels and form text
+    color: $secondary-color;
+  }
+}
+
+.icon-link:hover {
+  transform: scale(1.2); /* Larger icon animation */
+  transition: transform 0.3s ease-in-out; 
+}

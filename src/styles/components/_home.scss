@@ -1,0 +1,129 @@
+@import '../helpers/variables';
+@import '../helpers/mixins';
+@import '../base/typography';
+
+.Typewriter__cursor.text-danger {
+  color: $secondary-color !important;
+}
+
+.intro {
+  margin: 30px 0px;
+  animation-name: fadeIn;
+  animation-delay: 2s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  @include fadeInWithOverlay;
+
+  a {
+    color: #c9c9c9; 
+
+    &:hover {
+      color: $hover-color; 
+    }
+  }
+}
+
+.project-heading {
+  animation-name: fadeIn;
+  animation-delay: 3s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  @include fadeInWithOverlay;
+}
+
+.project-link {
+  position: relative;
+  display: block;
+}
+
+.project-image {
+  width: 60%;
+  margin: 40px auto;
+  position: relative;
+  z-index: 2;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  @include fadeInWithOverlay;
+}
+
+.overlay {
+  position: absolute;
+  top: 21%;
+  bottom: 0;
+  left: 5%;
+  right: 0;
+  height: 42%;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-delay: inherit; 
+  @include fadeInWithOverlay;
+}
+
+.project-link:hover .overlay {
+  background-color: rgba($secondary-color, 0.4);
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-delay: inherit;
+}
+
+.project-link:hover .loaded + .overlay {
+  opacity: 1;
+  animation-name: none;
+}
+
+.text {
+  color: white;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .project-image {
+    margin: 5px auto;
+  }
+  .overlay {
+    position: absolute;
+    top: 12%;
+    bottom: 0;
+    left: 5%;
+    right: 0;
+    height: 55%;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-delay: inherit; 
+    @include fadeInWithOverlay;
+  }
+  .text {
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
+
+@media (max-width: 960px) {
+  .text {
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}

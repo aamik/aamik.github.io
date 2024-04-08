@@ -1,0 +1,34 @@
+@import "helpers/variables";
+@import "helpers/mixins";
+@import "base/typography";
+
+.App {
+  display: flex;
+  min-height: 100vh;
+  background-color: $primary-color;
+}
+
+.main-content {
+  position: relative;
+  margin-left: $navbar-width;
+  width: calc(100% - #{$navbar-width});
+  overflow: auto;
+  font-family: $primary-font;
+  color: $secondary-color;
+  background-color: $primary-color;
+}
+
+.main-content.full-width {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  .navbar-open .main-content {
+    margin-left: $navbar-width;
+    width: calc(100% - #{$navbar-width});
+  }
+}
