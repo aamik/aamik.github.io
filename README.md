@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+#### Portfolio 2.0
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to my Portfolio 2.0 repo. Site has been built with Create-React-App, in combination with React-Bootstrap and SASS. 
 
-## Available Scripts
+## Technology Choices
 
-In the project directory, you can run:
+* React: The project was built using React, a JavaScript library known for its efficiency and flexibility. React's component-based architecture was leveraged to create reusable components, enhancing the maintainability and readability of the code. The Home component, for instance, maps over a list of projects and dynamically generates a section for each one. This dynamic rendering is a key feature of React, allowing for efficient updates and rendering of components.
 
-### `npm start`
+* React Router: React Router was used to implement navigation between different sections of the website (Home, About, Contact). This provides a smooth user experience and allows users to easily access different parts of the portfolio.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Bootstrap: Bootstrap, a popular CSS framework, was used for advanced styling. React-Bootstrap package provides pre-built components and utilities that can expedite development and ensure a consistent look and feel. However, the main styles are defined in SCSS for more granular control.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* SASS: The website was styled using SCSS, a CSS preprocessor that introduces useful features such as variables, nesting, and mixins. These features were used extensively to create a consistent theme across the website and to write DRY (Don't Repeat Yourself) code. The main styles are defined in main.scss, while the mixins and variables are defined in _mixins.scss and _variables.scss respectively.
 
-### `npm test`
+* Typewriter Effect: The Typewriter effect for the main description was achieved using the Typewriter component from the typewriter-effect package. This adds a dynamic, interactive feel to the website.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Presentation and Responsiveness
 
-### `npm run build`
+I designed the website with a mobile-first approach, ensuring it looks good and functions well on all device sizes. I used React-Bootsrap flexbox extensively to create a responsive layout that adjusts based on the viewport size. Media queries were used to apply different styles at different breakpoints, guaranteeing a smooth user experience across all devices.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The use of CSS animations, such as the loading animation for the project images, also contributes to the site's responsiveness. These animations are triggered when the images are loaded, providing a smooth transition and enhancing the user experience.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Website Performance
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Website performance was a key consideration throughout the development process. I implemented best practices such as code splitting, and efficient use of React's re-rendering to ensure a fast and smooth user experience. Dynamic media queries were achieved with React-Responsive and manual media queries for SCSS were implemented aswell. 
 
-### `npm run eject`
+Scores from Pagespeed (desktop/mobile):
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Performance (desktop/mobile): 95 / 61
+* Accesibility (desktop/mobile): 94 / 86
+* Best practices (desktop/mobile): 100 / 100
+* SEO (desktop/mobile): 100 / 100
