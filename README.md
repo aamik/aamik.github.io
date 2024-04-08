@@ -1,4 +1,4 @@
-#### Portfolio 2.0
+# Portfolio 2.0
 
 Welcome to my Portfolio 2.0 repo. Site has been built with Create-React-App, in combination with React-Bootstrap and SASS. 
 
