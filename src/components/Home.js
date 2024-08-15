@@ -11,17 +11,21 @@ function Home() {
       description: "Titanic Survivors: Machine learning model",
     },
     {
+      link: "https://github.com/aamik/xo_ai",
+      description: "Perfecting Tic-Tac-Toe: Reinforcement learning (WIP)",
+    },
+    {
       link: "https://github.com/aamik/",
       description: "Electricity spot price tracker",
     },
     {
       link: "https://github.com/aamik/",
-      description: "Full stack travel app",
+      description: "Full stack travel app (TBA)",
     },
 
     {
-      link: "www.google.fi",
-      description: "Something else",
+      link: "https://github.com/aamik/",
+      description: "More projects coming soon!",
     },
 
     // Easy to add more projects here
@@ -49,19 +53,22 @@ function Home() {
         />
         <div className="row intro">
           <div className="col-12">
-            <p className="mt-4">
-              My name is Aapo Mikkola, a computer science student. My passion
-              for computers has now become a conscientious academic and
-              professional journey. I have a broad interest in the field, with a
-              current academic focus on enhancing my proficiency in Web
-              Development and Data Science.
-            </p>
-            <p className="mt-4">
-              Let's connect! If you're interested in discussing opportunities or
-              collaborations, don't hesitate to{" "}
-              <Link to="/contact">reach out</Link>. Fully available in Finnish
-              and English.
-            </p>
+            <div className="mt-4 large-text">
+              <p>
+                My name is Aapo Mikkola, a computer science student. My passion
+                for computers has now become a conscientious academic and
+                professional journey. I have a broad interest in the field, with
+                a current academic focus on enhancing my proficiency in Data
+                Science and Web development.
+              </p>
+              <br></br>
+              <p>
+                Let's connect! If you're interested in discussing opportunities
+                or collaborations, don't hesitate to{" "}
+                <Link to="/contact">reach out</Link>. Fully available in Finnish
+                and English.
+              </p>
+            </div>
           </div>
         </div>
       </header>

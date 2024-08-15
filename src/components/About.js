@@ -53,14 +53,15 @@ function About() {
                   <Card.Body>
                     <Card.Title>Education</Card.Title>
                     <Card.Text>
-                      <a href="https://www.google.fi">
-                        Master of Science: Cell and Molecular Biology
-                        (University of Jyväskylä 2021)
+                      <a href="https://opinto-opas.jyu.fi/2024/en/module/tiema_lati/">
+                        Master of Computer Science: Computational Data Science
+                        (University of Jyväskylä, ongoing)
                       </a>
                     </Card.Text>
                     <Card.Text>
                       <a href="https://www.google.fi">
-                        Ongoing studies in Computer Science
+                        Master of Science: Cell and Molecular Biology
+                        (University of Jyväskylä, 2021)
                       </a>
                     </Card.Text>
                   </Card.Body>
@@ -93,7 +94,9 @@ function About() {
                   <Card.Body>
                     <Card.Title>Certificates</Card.Title>
                     <Card.Text>
-                      <a href="https://www.google.fi">AWS Certificate</a>
+                      <a href="https://aws.amazon.com/certification/">
+                        AWS Certificate (WIP)
+                      </a>
                     </Card.Text>
                   </Card.Body>
                 </Card>
