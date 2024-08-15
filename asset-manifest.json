@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.05b66956.css",
-    "main.js": "/static/js/main.a68ff60b.js",
+    "main.js": "/static/js/main.4b101d5b.js",
     "static/js/453.1407b060.chunk.js": "/static/js/453.1407b060.chunk.js",
     "static/media/trek_big.png": "/static/media/trek_big.d89af79fbb12e5bd850f.png",
     "static/media/coffee_big.png": "/static/media/coffee_big.a021da3a9c8a80d95664.png",
@@ -19,11 +19,11 @@
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/index.html",
     "main.05b66956.css.map": "/static/css/main.05b66956.css.map",
-    "main.a68ff60b.js.map": "/static/js/main.a68ff60b.js.map",
+    "main.4b101d5b.js.map": "/static/js/main.4b101d5b.js.map",
     "453.1407b060.chunk.js.map": "/static/js/453.1407b060.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.05b66956.css",
-    "static/js/main.a68ff60b.js"
+    "static/js/main.4b101d5b.js"
   ]
 }
