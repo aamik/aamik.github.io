@@ -30,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build --repo https://github.com/aamik/aamik.github.io.git"
   },
   "eslintConfig": {
     "extends": [
@@ -54,5 +54,9 @@
     "gh-pages": "^6.1.1",
     "sass": "^1.74.1",
     "sass-loader": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aamik/portfolio.git"
   }
 }
