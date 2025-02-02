@@ -55,11 +55,11 @@ function Home() {
           <div className="col-12">
             <div className="mt-4 large-text">
               <p>
-                My name is Aapo Mikkola, a computer science student. My passion
-                for computers has now become a conscientious academic and
-                professional journey. I have a broad interest in the field, with
-                a current academic focus on enhancing my proficiency in Data
-                Science and Web development.
+                I am a computer science student whose passion for computers has
+                now become a conscientious academic and professional journey. I
+                have a broad interest in the field, but a current academic focus
+                on enhancing my proficiency in Data Science with emphasized
+                weights on Machine learning.
               </p>
               <br></br>
               <p>
