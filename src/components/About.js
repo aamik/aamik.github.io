@@ -5,7 +5,6 @@ import "react-multi-carousel/lib/styles.css";
 import Typewriter from "typewriter-effect";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-/* Importing like this makes building easier */
 import badmBig from "../images/badm_big.jpg";
 import badmSmall from "../images/badm_small.jpg";
 import italyBig from "../images/coffee_big.png";
@@ -96,6 +95,11 @@ function About() {
                     <Card.Text>
                       <a href="https://aws.amazon.com/certification/">
                         AWS Certificate (WIP)
+                      </a>
+                    </Card.Text>
+                    <Card.Text>
+                      <a href="https://azure.microsoft.com/">
+                        Azure Certificate (WIP)
                       </a>
                     </Card.Text>
                   </Card.Body>

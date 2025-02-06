@@ -14,9 +14,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Contact() {
   // Define contact details as arrays to be joined later
   const email = ["aamik", "users.noreply.github.com"];
-  const phone = ["+358", "45", "6314659"];
+  const phone = ["+358", "45", "0000000"];
   const linkedin = ["https://fi.linkedin.com"];
-  const whatsapp = ["+358", "45", "6314659"];
+  const whatsapp = ["+358", "45", "0000000"];
   const telegram = ["harjar"];
 
   // Function to handle form submission and send email using emailjs service
@@ -49,7 +49,7 @@ function Contact() {
           onInit={(typewriter) => {
             typewriter
               .typeString(
-                "Feel free to reach out to me! I am always open to collaborations. You can contact me through any method that suits you best."
+                "Feel free to reach out to me! You can contact me through any method that suits you best. I prefer Telegram."
               )
               .start();
           }}

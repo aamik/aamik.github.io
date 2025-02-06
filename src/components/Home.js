@@ -20,7 +20,12 @@ function Home() {
     },
     {
       link: "https://github.com/aamik/",
-      description: "Full stack travel app (TBA)",
+      description: "Webapp for Travel recommendations (TBA)",
+    },
+
+    {
+      link: "https://github.com/aamik/",
+      description: "Home library database, native Java app without libraries",
     },
 
     {
@@ -28,7 +33,7 @@ function Home() {
       description: "More projects coming soon!",
     },
 
-    // Easy to add more projects here
+    // More projects here
   ];
 
   return (
