@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aapo Mikkola — Medical AI Engineer & Life Scientist</title>
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta name="description"
+    content="Aapo Mikkola — Medical AI engineer and molecular biologist. I build end-to-end medical AI systems: from whole-slide image analysis to reproducible deployment. Two master's degrees converging on trustworthy clinical AI." />
+  <meta name="author" content="Aapo Mikkola" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Aapo Mikkola — Medical AI Engineer & Molecular Biologist" />
+  <meta property="og:description"
+    content="End-to-end medical AI: whole-slide image analysis, deep learning pipelines, and reproducible deployment. Two master's degrees converging on trustworthy clinical AI." />
+  <meta property="og:image" content="/images/favicon.png" />
+  <meta property="og:url" content="https://aamik.github.io/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Aapo Mikkola — Medical AI Engineer & Molecular Biologist" />
+  <meta name="twitter:description"
+    content="End-to-end medical AI: whole-slide image analysis, deep learning pipelines, and reproducible deployment." />
+  <meta name="twitter:image" content="/images/favicon.png" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/favicon.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <a href="#education" class="skip-link">Skip to content</a>
+
+  <!-- ═══════════ NAV ═══════════ -->
+  <nav id="nav" class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo"><img src="/images/favicon.png" alt="Logo"
+          style="width: 1.2em; height: 1.2em; vertical-align: middle; margin-right: 4px;" /> <span>AM</span></a>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links">
+        <li><a href="#education" class="nav__link">Education</a></li>
+        <li><a href="#thesis" class="nav__link">Thesis</a></li>
+        <li><a href="#experience" class="nav__link">Experience</a></li>
+        <li><a href="#projects" class="nav__link">Projects</a></li>
+        <li><a href="#skills" class="nav__link">Skills</a></li>
+        <li><a href="#interests" class="nav__link">About Me</a></li>
+        <li><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+      <button class="nav__theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section id="hero" class="hero">
+    <canvas class="hero__canvas" id="bioCanvas"></canvas>
+
+    <!-- Kept for layout/styling consistency -->
+    <div class="hero__notebook-margin"></div>
+
+    <div class="container">
+      <div class="hero__content">
+        <p class="hero__role">
+          <span class="hero__role-highlight">Medical AI Engineer</span>
+          <span class="hero__role-connector">&amp;</span>
+          <span class="hero__role-highlight">Molecular Biologist</span>
+        </p>
+
+        <h1 class="hero__name">Aapo Mikkola</h1>
+        <div class="hero__accent-line"></div>
+
+        <p class="hero__desc" id="typewriter">
+          I build medical AI that survives contact with reality. <!--This is overwritten in main.js-->
+        </p>
+
+        <div class="hero__tags">
+          <a href="#skills"><span class="tag tag--tech">Medical Image Analysis</span></a>
+          <a href="#skills"><span class="tag tag--tech">PyTorch</span></a>
+          <a href="#skills"><span class="tag tag--tech">Weakly Supervised Learning</span></a>
+          <a href="#skills"><span class="tag tag--bio">Digital Pathology</span></a>
+          <a href="#skills"><span class="tag tag--infra">Linux &amp; Infrastructure</span></a>
+          <a href="#skills"><span class="tag tag--sci">Reproducible Research</span></a>
+        </div>
+
+        <div class="hero__cta">
+          <a href="#projects" class="btn btn--ghost">
+            View projects
+          </a>
+
+          <a href="#" data-email-link class="btn btn--outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
+            Email
+          </a>
+
+          <a href="#" data-telegram-link class="btn btn--outline" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+            Telegram
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="hero__rule" />
+
+  <!-- ═══════════ EDUCATION ═══════════ -->
+  <section id="education" class="section" data-reveal>
+    <span class="section__date" aria-hidden="true"></span>
+    <div class="container">
+      <p class="section__kicker">Education</p>
+      <h2 class="section__title">Degrees</h2>
+
+      <div class="card-grid">
+        <article class="card card--tech" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">M.Sc. Computer Science <span class="card__badge">In Progress</span></h3>
+          <p class="card__meta">2024–2026 · Computational Data Science · University of Jyväskylä</p>
+          <p class="card__body">
+            Deep learning, computer vision, and applied data science.
+          </p>
+          <p class="card__body">
+            <strong>Thesis</strong> (Spring 2026): automated SARIFA quantification in colorectal cancer whole‑slide
+            images using weakly supervised segmentation models.
+          </p>
+          <p class="card__body">
+            <strong>Minors:</strong> Mathematics and Software Engineering
+          </p>
+        </article>
+
+        <article class="card card--bio" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">M.Sc. Cell and Molecular Biology</h3>
+          <p class="card__meta">2021 · Microbiology & Immunohistology · University of Jyväskylä</p>
+          <p class="card__body">
+            Focus on microbiology, virology, microscopy and histology, and computational methods.
+          </p>
+          <p class="card__body">
+            <strong>Thesis:</strong> conjugative CRISPR‑Cas9 plasmid strategy to remove antibiotic resistance in
+            multiresistant hospital <em>E. Coli</em>.
+          </p>
+          <p class="card__body">
+            <strong>Minors:</strong> Organic Chemistry and Cognitive Neuroscience
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ THESIS ═══════════ -->
+  <section id="thesis" class="section" data-reveal>
+    <div class="container">
+      <p class="section__kicker">Master's Thesis — Spring 2026</p>
+      <h2 class="section__title">Digital Pathology Research</h2>
+
+      <div class="thesis-feature" data-reveal>
+        <div class="thesis-feature__accent"></div>
+
+        <div class="thesis-feature__header">
+          <div class="thesis-feature__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="thesis-feature__title">Deep Learning Detection of SARIFA in Colorectal Cancer Whole-Slide Images</h3>
+            <p class="thesis-feature__subtitle">
+              Tile classification · Multiple-instance learning · Weakly supervised WSI analysis · Tumor microenvironment
+            </p>
+          </div>
+        </div>
+
+        <p class="thesis-feature__body">
+          <strong>SARIFA</strong> (Stroma AReactive Invasion Front Areas) is a histomorphologic feature defined by direct
+          contact between tumor cell clusters and adipose tissue at the invasion front — without the expected
+          desmoplastic stromal barrier. SARIFA-positivity is an independent prognostic marker in colorectal and other
+          gastrointestinal cancers, linked to altered immune microenvironment and tumor–adipocyte metabolic
+          reprogramming. Current pathologist assessment is manual, subjective, and not scalable to large cohorts.
+        </p>
+
+        <p class="thesis-feature__body">
+          My thesis builds a staged, contract-driven computational pipeline for slide-level SARIFA detection
+          across the TCGA colorectal cancer cohort (~200 patients, ~250 GB of whole-slide images). The emphasis is
+          on rigorous ML engineering: every modelling decision is pre-declared in a stage contract, splits are fixed and
+          patient-disjoint, and the held-out test set is opened exactly once per model. The tile classifier achieves
+          AUROC 0.985 across five seeds. The current patient-level baseline (non-parametric top-k aggregation)
+          reaches test AUROC 0.849, AUPRC 0.821. A learned multiple-instance learning stage is in progress.
+        </p>
+
+        <div class="thesis-feature__aims">
+          <div class="thesis-aim" data-reveal>
+            <p class="thesis-aim__number">Aim 01</p>
+            <h4 class="thesis-aim__title">Tile classifier</h4>
+            <p class="thesis-aim__body">
+              ResNet-50 trained to classify 512&thinsp;×&thinsp;512&thinsp;px H&amp;E tiles as SARIFA-positive or
+              negative. Three-zone label policy — POS (ROI overlap), IGNORE (boundary band), NEG (negative slides
+              only) — prevents false-negative injection from incompletely annotated positive slides. Focal loss,
+              balanced sampling, post-hoc temperature calibration.
+            </p>
+          </div>
+
+          <div class="thesis-aim" data-reveal>
+            <p class="thesis-aim__number">Aim 02</p>
+            <h4 class="thesis-aim__title">Patient-level aggregation</h4>
+            <p class="thesis-aim__body">
+              Non-parametric top-k pooling as the locked baseline, followed by attention-based MIL (ABMIL) with a
+              partial instance supervision head. The instance head is trained on annotated POS tiles and confirmed-NEG
+              tiles; high-scoring ambiguous tiles identified in pathologist review are excluded from instance loss
+              rather than forced to zero — preserving true signal outside annotation boundaries.
+            </p>
+          </div>
+
+          <div class="thesis-aim" data-reveal>
+            <p class="thesis-aim__number">Aim 03</p>
+            <h4 class="thesis-aim__title">Spatial interpretability</h4>
+            <p class="thesis-aim__body">
+              Calibrated score heatmaps over full WSI thumbnails, ROI-contact enrichment analysis, and spatial
+              geometry of the high-scoring tile subset — boundary proximity, connected-component span,
+              Spearman correlation between slide score and distance to annotated invasion front
+              (ρ&thinsp;=&thinsp;0.68, p&thinsp;=&thinsp;0.00069). Attention maps from the MIL stage will extend
+              this to a learned localization signal.
+            </p>
+          </div>
+        </div>
+
+        <div class="thesis-feature__methods" data-reveal>
+          <h4 class="thesis-feature__methods-title">Pipeline</h4>
+          <div class="thesis-methods-grid">
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>202 TCGA-CRC whole-slide images, 69 SARIFA-positive — patient-disjoint 70/15/15 split, stratified by ROI yield</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>4.2 million manifest-backed tiles; QuPath GeoJSON → Shapely → 3-zone label assignment with micron-calibrated boundary bands</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>ResNet-50 tile classifier: focal loss (α 0.25, γ 2.0), AdamW, balanced 1:1 sampling — AUROC 0.985 ± 0.001 across 5 seeds</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>Full-manifest WSI inference → calibrated score parquet; temperature scaling fitted on class-balanced validation tiles</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>Top-k aggregation (locked k=1): test AUROC 0.849, AUPRC 0.821; ABMIL with instance supervision head in progress</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>Attention map outputs per patient for spatial comparison with annotated ROI geometry and heatmap overlays</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="thesis-feature__methods" data-reveal>
+          <h4 class="thesis-feature__methods-title">What I care about</h4>
+          <div class="thesis-methods-grid">
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>Pre-declared contracts: evaluation metrics, thresholds, and locked decisions are written before results are seen — not reverse-engineered from them</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>Audit trail: versioned parquet artefacts with SHA-256 hashes, staged run directories, reproducible splits — the pipeline documents what actually happened</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>Failure modes first: Gate A (Grad-CAM), Gate B (pathologist tile review), and explicit documentation of marginal gate passes and known limitations</span>
+            </div>
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span>Slice-aware evaluation: TSS site monitoring, per-split label counts, and documented val–test AUROC gaps — global metrics alone are not enough</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication -->
+        <div class="thesis-feature__methods" data-reveal>
+          <h4 class="thesis-feature__methods-title">Publication</h4>
+          <div class="thesis-methods-grid">
+            <div class="thesis-method">
+              <span class="thesis-method__dot"></span>
+              <span><em>In preparation</em> — Mikkola et al. Weakly supervised SARIFA detection in colorectal cancer whole-slide images using tile classification and multiple-instance learning. Expected submission Q3–Q4 2026.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EXPERIENCE ═══════════ -->
+  <section id="experience" class="section section--alt" data-reveal>
+    <div class="container">
+      <p class="section__kicker">Experience</p>
+      <h2 class="section__title">What I Do</h2>
+
+      <div class="card-grid card-grid--cols-3">
+        <article class="card card--tech" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">Applied ML &amp; Data Science</h3>
+          <p class="card__meta">Computational pathology · ML systems · Evaluation</p>
+          <ul class="card__list">
+            <li>Deep learning and CV pipelines for computational pathology and biomedical imaging.</li>
+            <li>Python (SciPy, PyTorch) on Linux; reproducible evaluation runs and clean experiment
+              artifacts.</li>
+            <li>GPU workflows, Docker/Proxmox, CI/CD with Git; pragmatic ops mindset (observability, failure modes,
+              deployment constraints).</li>
+          </ul>
+        </article>
+
+        <article class="card card--bio" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">Wet Lab &amp; Biology</h3>
+          <p class="card__meta">Microbiology · Histology · Experimental practice</p>
+          <ul class="card__list">
+            <li>Microbiology, virology, microscopy, sequencing, (q)PCR, cloning, CRISPR‑Cas9, conjugation.</li>
+            <li>Comfortable with protocols, documentation, and the reality that "measurement" is always imperfect.</li>
+            <li>Strong intuition for what biological claims mean (and what would falsify them).</li>
+          </ul>
+        </article>
+
+        <article class="card card--sci" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">Scientific Rigour &amp; Collaboration</h3>
+          <p class="card__meta">Experimental design · Writing · Cross-disciplinary work</p>
+          <ul class="card__list">
+            <li>Experimental design, honest evaluation, and calibrated metrics - habits from scientific training, not
+              just engineering convention.</li>
+            <li>Working across clinicians, pathologists, and engineers: structured problem framing, clear scientific
+              writing, and transparent uncertainty.</li>
+            <li>International environments; reproducibility as a research value; calm execution under deadlines.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ═══════════ PROJECTS ═══════════ -->
+  <section id="projects" class="section section--alt" data-reveal>
+    <div class="container">
+      <p class="section__kicker">Projects</p>
+      <h2 class="section__title">Things I've Built</h2>
+
+      <div class="card-grid card-grid--cols-3">
+        <article class="card card--tech-infra" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">ABM City</h3>
+          <p class="card__meta">Agent-based simulation · Epidemiology · Interactive dashboard</p>
+          <p class="card__body">
+            Clinically informed SEIRD city simulator built with Mesa and Solara. The model combines spatial movement,
+            age-stratified disease progression, hospital capacity constraints, and real-time intervention controls in a
+            live dashboard for exploring epidemic dynamics under policy changes.
+          </p>
+          <a href="https://github.com/aamik/abm_city" target="_blank" rel="noopener noreferrer"
+            class="card__link">GitHub →</a>
+        </article>
+
+        <article class="card card--tech-sci" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">RL Car Racing</h3>
+          <p class="card__meta">Reinforcement learning · PPO · Computer vision</p>
+          <p class="card__body">
+            PPO agent for Gymnasium CarRacing-v3 trained directly from pixel observations. The implementation uses a
+            grayscale 4-frame stack, a CNN actor-critic, continuous control outputs for steering, gas, and brake, and
+            a single-file training script adapted from CleanRL for reproducible experimentation.
+          </p>
+          <a href="https://github.com/aamik/rl_car_racing" target="_blank" rel="noopener noreferrer"
+            class="card__link">GitHub →</a>
+        </article>
+
+        <!-- Future project cards go here.
+        <article class="card card--bio-tech" data-reveal>
+          <div class="card__accent"></div>
+          <h3 class="card__title">Project title</h3>
+          <p class="card__meta">Domain · Focus</p>
+          <p class="card__body">Short publish-ready description.</p>
+          <a href="https://github.com/aamik/project-name" target="_blank" rel="noopener noreferrer" class="card__link">GitHub →</a>
+        </article>
+        -->
+      </div>
+
+      <div class="section__cta" data-reveal>
+        <p class="section__note">Want to see something specific - code, evaluation details, or implementation notes?</p>
+        <a href="#" data-email-link class="btn btn--outline">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SKILLS ═══════════ -->
+  <section id="skills" class="section" data-reveal>
+    <div class="container">
+      <p class="section__kicker">Skills</p>
+      <h2 class="section__title">What I Work With</h2>
+      <p class="section__subtitle">Two master's degrees — one from the wet lab, one in deep learning — converging on
+        end-to-end medical AI: from raw WSI to trained model to reproducible report.</p>
+
+      <div class="skills-block">
+
+        <!-- AI & Engineering -->
+        <div>
+          <p class="section__kicker"
+            style="background: linear-gradient(90deg, var(--accent-tech) 0%, var(--accent-tech) 50%, var(--accent-infra) 75%, var(--accent-infra) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+            Stack</p>
+          <h2 class="section__title section__title--tech">AI &amp; Engineering</h2>
+          <div class="pill-grid">
+            <div class="pill pill--tech" data-reveal><span class="pill__label">Python</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">PyTorch</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">Medical Image Analysis</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">Segmentation &amp; Detection</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">Experiment Tracking · MLOps</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">Foundation Models</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">Model Explainability</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">Data Pipelines & CI/CD</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">AI Agent Systems</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--infra" data-reveal><span class="pill__label">Linux &amp; Infrastructure</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--infra" data-reveal><span class="pill__label">Docker &amp;
+                Containerization</span><span class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--infra" data-reveal><span class="pill__label">GPU Compute</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--infra" data-reveal><span class="pill__label">Full Stack Web</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+          </div>
+        </div>
+
+        <!-- Biomedical Sciences -->
+        <div>
+          <p class="section__kicker" style="color: var(--accent-bio)">Domain</p>
+          <h2 class="section__title section__title--bio">Biomedical</h2>
+          <div class="pill-grid">
+            <div class="pill pill--bio" data-reveal><span class="pill__label">Cell &amp; Molecular Biology
+                Lab</span><span class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">Digital Pathology</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">WSI Analysis</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">Tumour Microenvironment</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">Immunology</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">Histology &amp; Microscopy</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">CRISPR-Cas9 &amp; Cloning</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">qPCR</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">DNA Sequencing</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">Protein Dynamics</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--bio" data-reveal><span class="pill__label">Bioinformatics</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+
+          </div>
+        </div>
+
+        <!-- Analytical Foundations -->
+        <div>
+          <p class="section__kicker" style="color: var(--accent-sci)">Method</p>
+          <h2 class="section__title section__title--sci">Analytical Rigour</h2>
+          <div class="pill-grid">
+            <div class="pill pill--sci" data-reveal><span class="pill__label">Experimental Design</span><span
+                class="pill__level pill__level--expert">Expert</span></div>
+            <div class="pill pill--sci" data-reveal><span class="pill__label">Statistical Analysis</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--sci" data-reveal><span class="pill__label">Simulation Methods</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--sci" data-reveal><span class="pill__label">Reproducible Research</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--sci" data-reveal><span class="pill__label">Applied Mathematics</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--sci" data-reveal><span class="pill__label">Scientific Writing</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+            <div class="pill pill--sci" data-reveal><span class="pill__label">Data Visualisation</span><span
+                class="pill__level pill__level--advanced">Advanced</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spoken Languages -->
+      <div class="skills-langs">
+        <p class="section__kicker">Languages</p>
+        <h2 class="section__title">Spoken</h2>
+        <div class="pill-grid">
+          <div class="pill" data-reveal><span class="pill__label">Finnish</span><span
+              class="pill__level pill__level--native">Native</span></div>
+          <div class="pill" data-reveal><span class="pill__label">English</span><span
+              class="pill__level pill__level--expert">C2 Proficient</span></div>
+          <div class="pill" data-reveal><span class="pill__label">Swedish</span><span
+              class="pill__level pill__level--moderate">Moderate</span></div>
+          <div class="pill" data-reveal><span class="pill__label">German</span><span
+              class="pill__level pill__level--basic">Basic</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ ABOUT ME ═══════════ -->
+  <section id="interests" class="section section--alt" data-reveal>
+    <div class="container">
+      <p class="section__kicker">About Me</p>
+      <h2 class="section__title">Beyond the Work</h2>
+
+      <div class="about-grid">
+        <div class="about-text" data-reveal>
+          <p>I care about correctness more than cleverness. I'd rather build a simple,
+            well-validated pipeline I can defend in a methods section than an elaborate
+            one I can't fully explain. That instinct comes from scientific training -
+            where you're accountable for your methodology, not just your results -
+            and it travels with me into every engineering problem I touch.</p>
+          <p>What I find most interesting is working at the boundary between disciplines:
+            where biological questions meet computational methods, where a model's output
+            has to mean something to a clinician, where the right answer requires
+            understanding both sides. That's the space I've spent years building toward,
+            and where I do my best work.</p>
+          <p>The same instinct carries outside work. I'd rather ski a long trail through
+            forest than a lifeless slope, ride proper bush on a mountain bike, and find
+            the good coffee in a city before the obvious one. I read widely - history,
+            philosophy, science - because the most useful ideas rarely stay in their
+            original field.</p>
+        </div>
+        <div class="gallery" data-reveal>
+          <!-- Row 1: Mountains & Treks -->
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/bike_small.jpg" alt="Mountain biking in Ylläs" loading="lazy" />
+          </figure>
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/konnevesi.jpg" alt="Konnevesi nature" loading="lazy" />
+          </figure>
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/ski_small.jpg" alt="Cross-country skiing" loading="lazy" />
+          </figure>
+          <!-- Row 2: Hobbies -->
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/badm_small.jpg" alt="Badminton" loading="lazy" />
+          </figure>
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/music1.jpg" alt="Music" loading="lazy" />
+          </figure>
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/italy2.jpg" alt="Italy" loading="lazy" />
+          </figure>
+          <!-- Row 3: Travel -->
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/italy3.jpg" alt="Italy coast" loading="lazy" />
+          </figure>
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/tene.jpg" alt="Tenerife" loading="lazy" />
+          </figure>
+          <figure class="gallery__item" data-reveal>
+            <img src="/images/tene2.jpg" alt="Tenerife volcano" loading="lazy" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ CONTACT ═══════════ -->
+  <section id="contact" class="section" data-reveal>
+    <div class="container contact__layout">
+      <div class="contact__content">
+        <p class="section__kicker">Contact</p>
+        <h2 class="section__title">Let's talk</h2>
+        <p class="contact__body">If you're building biomedical / clinical AI and care about infra and reliability,
+          I'm happy to connect. Available in Finnish and English.</p>
+        <p class="contact__closing">
+          What I bring that's harder to find is the combination: I can talk to a pathologist about invasion front
+          biology and then go implement the segmentation pipeline.
+        </p>
+        <div class="contact__icons">
+          <a href="#" data-telegram-link class="contact__icon" title="Telegram" aria-label="Telegram" target="_blank"
+            rel="noopener noreferrer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+          </a>
+          <a href="#" data-email-link class="contact__icon" title="Email" aria-label="Email">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
+          </a>
+          <a href="https://github.com/aamik" target="_blank" rel="noopener noreferrer" class="contact__icon"
+            title="GitHub" aria-label="GitHub">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </a>
+          <!-- Add LinkedIn here when the public profile URL is ready. -->
+        </div>
+      </div>
+      <div class="contact__visual">
+        <img src="/images/flip_single.png" class="contact__accent" aria-hidden="true" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Aapo Mikkola · Built with <a href="https://vite.dev" target="_blank"
+          rel="noopener noreferrer">Vite</a></p>
+    </div>
+  </footer>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Aapo Mikkola",
+    "jobTitle": "AI Engineer & Biomedical Scientist",
+    "url": "https://aamik.github.io",
+    "sameAs": [
+      "https://github.com/aamik"
+    ],
+    "knowsAbout": [
+      "Medical Image Analysis",
+      "Digital Pathology",
+      "Deep Learning",
+      "PyTorch",
+      "Whole-Slide Image Analysis",
+      "Computational Biology"
+    ],
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "University of Jyväskylä"
+      }
+    ]
+  }
+  </script>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

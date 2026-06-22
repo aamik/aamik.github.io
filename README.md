@@ -1,32 +1,88 @@
-# Portfolio 2.0
+# Aapo Mikkola — Personal CV / Portfolio
 
-Welcome to my Portfolio 2.0 repo. Site has been built with Create-React-App, in combination with React-Bootstrap and SASS. 
+Single-page portfolio site for a medical AI engineer & molecular biologist.
 
-## Technology Choices
+## Tech Stack
 
-* React: The project was built using React, a JavaScript library known for its efficiency and flexibility. React's component-based architecture was leveraged to create reusable components, enhancing the maintainability and readability of the code. The Home component, for instance, maps over a list of projects and dynamically generates a section for each one. This dynamic rendering is a key feature of React, allowing for efficient updates and rendering of components.
+- **Vite** — build tool, dev server, asset optimization
+- **Vanilla HTML/CSS/JS** — no frameworks, no dependencies beyond Vite
+- **Google Fonts** — Inter, Spectral, JetBrains Mono, Caveat
 
-* React Router: React Router was used to implement navigation between different sections of the website (Home, About, Contact). This provides a smooth user experience and allows users to easily access different parts of the portfolio.
+## Architecture
 
-* Bootstrap: Bootstrap, a popular CSS framework, was used for advanced styling. React-Bootstrap package provides pre-built components and utilities that can expedite development and ensure a consistent look and feel. However, the main styles are defined in SCSS for more granular control.
+```
+.
+├── index.html          # Single-page structure and metadata
+├── style.css           # Full design system
+├── main.js             # Canvas animation, typewriter, scroll reveals, theme toggle
+├── public/
+│   ├── images/         # Optimized assets
+│   ├── robots.txt      # Crawler policy
+│   └── _headers        # Host-specific header hints; not enforced by GitHub Pages
+├── .github/workflows/
+│   └── deploy.yml      # GitHub Pages deployment via Actions
+└── .env                # Optional local contact config; never commit
+```
 
-* SASS: The website was styled using SCSS, a CSS preprocessor that introduces useful features such as variables, nesting, and mixins. These features were used extensively to create a consistent theme across the website and to write DRY (Don't Repeat Yourself) code. The main styles are defined in main.scss, while the mixins and variables are defined in _mixins.scss and _variables.scss respectively.
+## Key Implementations
 
-* Typewriter Effect: The Typewriter effect for the main description was achieved using the Typewriter component from the typewriter-effect package. This adds a dynamic, interactive feel to the website.
+### Visual Design
+- **4-color domain system**: Teal (AI/ML), Forest Green (Biomedical), Gold (Infrastructure), Purple (Analytical)
+- **Notebook texture**: Ruled lines, margin lines, H&E stain colors, handwritten dates
+- **WSI canvas animation**: Interactive whole-slide image with flood-fill tissue detection
+- **Shimmer divider**: Animated 4-color gradient bar between hero and content
 
-## Presentation and Responsiveness
+### Performance
+- **WebP hero image**: 1.6 MB vs 11 MB PNG original (quality 95, lossless-equivalent)
+- **Gallery JPGs**: All resized to ≤600px, 44–128 KB each
+- **Total dist: ~3.9 MB** including all images
+- **Lazy loading** on all gallery images
 
-I designed the website with a mobile-first approach, ensuring it looks good and functions well on all device sizes. I used React-Bootsrap flexbox extensively to create a responsive layout that adjusts based on the viewport size. Media queries were used to apply different styles at different breakpoints, guaranteeing a smooth user experience across all devices.
+### Accessibility
+- Skip-to-content link
+- `prefers-reduced-motion` respects user settings
+- `:focus-visible` keyboard-only focus rings
+- Semantic HTML, ARIA labels on interactive elements
 
-The use of CSS animations, such as the loading animation for the project images, also contributes to the site's responsiveness. These animations are triggered when the images are loaded, providing a smooth transition and enhancing the user experience.
+### Security & Privacy
+- **No backend, no cookies, no forms, no analytics**
+- **Email obfuscation**: Base64-encoded in env, decoded at runtime (`atob()`)
+- **Frontend env is not secret**: `VITE_*` values are embedded into the built site if used
+- **Browser-enforced CSP**: Locks scripts to self, limits fonts to Google Fonts, disables plugin objects
+- **Referrer policy**: `strict-origin-when-cross-origin`
+- **Permissions-Policy intent**: Camera, microphone, geolocation denied via `_headers` on hosts that support it
+- **robots.txt**: Blocks GPTBot, CCBot, anthropic-ai, Google-Extended
 
-## Website Performance
+### SEO
+- Open Graph + Twitter Card meta tags
+- JSON-LD structured data (`Person` schema)
+- Semantic heading hierarchy
 
-Website performance was a key consideration throughout the development process. I implemented best practices such as code splitting, and efficient use of React's re-rendering to ensure a fast and smooth user experience. Dynamic media queries were achieved with React-Responsive and manual media queries for SCSS were implemented aswell. 
+## Development
 
-Scores from Pagespeed (desktop/mobile):
+```bash
+npm install
+npm run dev          # Local dev server
+npm run dev -- --host  # Expose to LAN (mobile testing)
+npm run build        # Production build → dist/
+```
 
-* Performance (desktop/mobile): 95 / 61
-* Accesibility (desktop/mobile): 94 / 86
-* Best practices (desktop/mobile): 100 / 100
-* SEO (desktop/mobile): 100 / 100
+## Deployment
+
+Built for **GitHub Pages** at the site root (`https://aamik.github.io/`) when deployed from the
+`aamik.github.io` repository or an equivalent custom-domain Pages site.
+
+```bash
+npm run build
+# Deploy dist/ via GitHub Actions
+```
+
+### Optional Build Variables
+- `VITE_EMAIL_B64` — Base64-encoded email address
+- `VITE_TELEGRAM` — Telegram URL
+
+If omitted, the corresponding contact links are removed from the rendered page.
+
+## License
+
+© 2026 Aapo Mikkola. All rights reserved.
