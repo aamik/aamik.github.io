@@ -386,6 +386,18 @@ function initSmoothScroll() {
   });
 }
 
+function initClickableCards() {
+  document.querySelectorAll('.card--link').forEach(card => {
+    const link = card.querySelector('.card__link');
+    if (!link) return;
+
+    card.addEventListener('click', e => {
+      if (e.target.closest('a, button')) return;
+      window.open(link.href, link.target || '_self', 'noopener,noreferrer');
+    });
+  });
+}
+
 // ─── Init ───
 document.addEventListener('DOMContentLoaded', () => {
   const twEl = document.getElementById('typewriter');
@@ -403,6 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHamburger();
   initThemeToggle();
   initSmoothScroll();
+  initClickableCards();
 
   // Handwritten notebook date — auto-set to today
   const dateEl = document.querySelector('.section__date');

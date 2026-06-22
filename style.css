@@ -651,11 +651,6 @@ ul { list-style: none; }
   background: var(--card-accent-bg, linear-gradient(to bottom, var(--accent), var(--accent-warm)));
   border-radius: var(--radius) 0 0 var(--radius);
 }
-.card__stretched-link {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
 .card--tech { 
   --card-accent-bg: linear-gradient(to bottom, var(--accent), color-mix(in srgb, var(--accent) 30%, transparent));
   background: color-mix(in srgb, var(--accent) 2%, var(--surface));
