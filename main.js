@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Aapo Mikkola Portfolio — Main JS v3
+   Aapo Mikkola Portfolio - Main JS v3
    Biology-themed: organic cell shapes on canvas,
    gentle mouse-proximity response, professional polish
    ═══════════════════════════════════════════════════════ */
@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (twEl) {
     new Typewriter(
       twEl,
-      "Two master's degrees: one from the life science lab, one in deep learning. I build ML systems for medical imaging - and understand the biology they're reasoning about.", 
+      "I build machine learning systems for medical imaging and understand the biology behind them.",
       24
     ).start();
   }
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initClickableCards();
 
-  // Handwritten notebook date — auto-set to today
+  // Handwritten notebook date, auto-set to today
   const dateEl = document.querySelector('.section__date');
   if (dateEl) {
     const d = new Date();
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dateEl.textContent = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   }
 
-  // Inject contact links from env — email is base64-encoded to deter scrapers
+  // Inject contact links from env. Email is base64-encoded to deter scrapers.
   const emailB64 = import.meta.env.VITE_EMAIL_B64;
   if (emailB64) {
     const email = atob(emailB64);

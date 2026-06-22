@@ -4,28 +4,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aapo Mikkola — Medical AI Engineer & Life Scientist</title>
+  <title>Aapo Mikkola | Medical AI Engineer and Life Scientist</title>
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <meta name="description"
-    content="Aapo Mikkola — Medical AI engineer and molecular biologist. I build end-to-end medical AI systems: from whole-slide image analysis to reproducible deployment. Two master's degrees converging on trustworthy clinical AI." />
+    content="Aapo Mikkola is a medical AI engineer and molecular biologist working on whole-slide image analysis, deep learning, and reproducible clinical AI systems." />
   <meta name="author" content="Aapo Mikkola" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Aapo Mikkola — Medical AI Engineer & Molecular Biologist" />
+  <meta property="og:title" content="Aapo Mikkola | Medical AI Engineer and Molecular Biologist" />
   <meta property="og:description"
-    content="End-to-end medical AI: whole-slide image analysis, deep learning pipelines, and reproducible deployment. Two master's degrees converging on trustworthy clinical AI." />
+    content="Whole-slide image analysis, deep learning pipelines, and reproducible clinical AI systems." />
   <meta property="og:image" content="/images/favicon.png" />
   <meta property="og:url" content="https://aamik.github.io/" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Aapo Mikkola — Medical AI Engineer & Molecular Biologist" />
+  <meta name="twitter:title" content="Aapo Mikkola | Medical AI Engineer and Molecular Biologist" />
   <meta name="twitter:description"
-    content="End-to-end medical AI: whole-slide image analysis, deep learning pipelines, and reproducible deployment." />
+    content="Whole-slide image analysis, deep learning pipelines, and reproducible clinical AI systems." />
   <meta name="twitter:image" content="/images/favicon.png" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
@@ -186,7 +186,7 @@
   <!-- ═══════════ THESIS ═══════════ -->
   <section id="thesis" class="section" data-reveal>
     <div class="container">
-      <p class="section__kicker">Master's Thesis — Spring 2026</p>
+      <p class="section__kicker">Master's Thesis, Spring 2026</p>
       <h2 class="section__title">Digital Pathology Research</h2>
 
       <div class="thesis-feature" data-reveal>
@@ -209,7 +209,7 @@
 
         <p class="thesis-feature__body">
           <strong>SARIFA</strong> (Stroma AReactive Invasion Front Areas) is a histomorphologic feature defined by direct
-          contact between tumor cell clusters and adipose tissue at the invasion front — without the expected
+          contact between tumor cell clusters and adipose tissue at the invasion front, without the expected
           desmoplastic stromal barrier. SARIFA-positivity is an independent prognostic marker in colorectal and other
           gastrointestinal cancers, linked to altered immune microenvironment and tumor–adipocyte metabolic
           reprogramming. Current pathologist assessment is manual, subjective, and not scalable to large cohorts.
@@ -231,8 +231,8 @@
             <h4 class="thesis-aim__title">Tile classifier</h4>
             <p class="thesis-aim__body">
               ResNet-50 trained to classify 512&thinsp;×&thinsp;512&thinsp;px H&amp;E tiles as SARIFA-positive or
-              negative. Three-zone label policy — POS (ROI overlap), IGNORE (boundary band), NEG (negative slides
-              only) — prevents false-negative injection from incompletely annotated positive slides. Focal loss,
+              negative. Three-zone label policy with POS (ROI overlap), IGNORE (boundary band), and NEG (negative
+              slides only) prevents false-negative injection from incompletely annotated positive slides. Focal loss,
               balanced sampling, and post-hoc temperature calibration.
             </p>
           </div>
@@ -243,7 +243,7 @@
             <p class="thesis-aim__body">
               Non-parametric top-k pooling as the locked baseline, followed by attention-based MIL (ABMIL) with a
               partial instance supervision head. The instance head is trained on annotated POS tiles and confirmed-NEG
-              tiles; high-scoring ambiguous tiles identified in pathologist review are excluded from instance loss
+              tiles. High-scoring ambiguous tiles identified in pathologist review are excluded from instance loss
               rather than forced to zero, preserving true signal outside annotation boundaries.
             </p>
           </div>
@@ -253,7 +253,7 @@
             <h4 class="thesis-aim__title">Spatial interpretability</h4>
             <p class="thesis-aim__body">
               Calibrated score heatmaps over full WSI thumbnails, ROI-contact enrichment analysis, and spatial
-              geometry of the high-scoring tile subset — boundary proximity, connected-component span,
+              geometry of the high-scoring tile subset including boundary proximity and connected-component span,
               Spearman correlation between slide score and distance to annotated invasion front
               (ρ&thinsp;=&thinsp;0.68, p&thinsp;=&thinsp;0.00069). Attention maps from the MIL stage extend this
               toward a learned localization signal.
@@ -266,23 +266,23 @@
           <div class="thesis-methods-grid">
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>202 TCGA-CRC whole-slide images, 69 SARIFA-positive — patient-disjoint 70/15/15 split, stratified by ROI yield</span>
+              <span>202 TCGA-CRC whole-slide images, 69 SARIFA-positive, patient-disjoint 70/15/15 split stratified by ROI yield</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>4.2 million manifest-backed tiles; QuPath GeoJSON → Shapely → 3-zone label assignment with micron-calibrated boundary bands</span>
+              <span>4.2 million manifest-backed tiles from QuPath GeoJSON through Shapely to 3-zone label assignment with micron-calibrated boundary bands</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>ResNet-50 tile classifier: focal loss (α 0.25, γ 2.0), AdamW, balanced 1:1 sampling — AUROC 0.985 ± 0.001 across five seeds</span>
+              <span>ResNet-50 tile classifier with focal loss (α 0.25, γ 2.0), AdamW, balanced 1:1 sampling, and AUROC 0.985 ± 0.001 across five seeds</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Full-manifest WSI inference → calibrated score parquet; temperature scaling fitted on class-balanced validation tiles</span>
+              <span>Full-manifest WSI inference to calibrated score parquet, with temperature scaling fitted on class-balanced validation tiles</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Top-k aggregation (locked k=1): test AUROC 0.849, AUPRC 0.821; ABMIL with instance supervision in progress</span>
+              <span>Top-k aggregation (locked k=1) gives test AUROC 0.849 and AUPRC 0.821. ABMIL with instance supervision is in progress</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
@@ -296,19 +296,19 @@
           <div class="thesis-methods-grid">
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Pre-declared contracts: evaluation metrics, thresholds, and locked decisions are written before results are seen — not reverse-engineered from them</span>
+              <span>Pre-declared contracts. Evaluation metrics, thresholds, and locked decisions are written before results are seen, not reverse-engineered from them</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Audit trail: versioned parquet artefacts with SHA-256 hashes, staged run directories, reproducible splits — the pipeline documents what actually happened</span>
+              <span>Audit trail through versioned parquet artefacts with SHA-256 hashes, staged run directories, and reproducible splits</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Failure modes first: Gate A (Grad-CAM), Gate B (pathologist tile review), and explicit documentation of marginal gate passes and known limitations</span>
+              <span>Failure modes first, with Gate A (Grad-CAM), Gate B (pathologist tile review), and explicit documentation of marginal gate passes and known limitations</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Slice-aware evaluation: TSS site monitoring, per-split label counts, and documented val–test AUROC gaps — global metrics alone are not enough</span>
+              <span>Slice-aware evaluation with TSS site monitoring, per-split label counts, and documented val-test AUROC gaps</span>
             </div>
           </div>
         </div>
@@ -319,7 +319,7 @@
           <div class="thesis-methods-grid">
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span><em>In preparation</em> — Mikkola et al. Weakly supervised SARIFA detection in colorectal cancer whole-slide images using tile classification and multiple-instance learning. Expected submission Q3–Q4 2026.</span>
+              <span><em>In preparation.</em> Mikkola et al. Weakly supervised SARIFA detection in colorectal cancer whole-slide images using tile classification and multiple-instance learning. Expected submission Q3 to Q4 2026.</span>
             </div>
           </div>
         </div>
@@ -341,7 +341,7 @@
           <p class="card__meta">Computational pathology · ML systems · Evaluation</p>
           <ul class="card__list">
             <li>Deep learning, computer vision, NLP, attention mechanisms, model evaluation, and tuning for computational pathology and biomedical imaging.</li>
-            <li>PyTorch, scikit-learn, MLflow, and modern Python scientific tooling; R and SQL when the problem calls for them.</li>
+            <li>PyTorch, scikit-learn, MLflow, and modern Python scientific tooling. R and SQL when the problem calls for them.</li>
             <li>Generative AI and LLM workflows: local models, custom harnesses, fine-tuning, RAG, knowledge-graph retrieval, and MCP-based agentic tool use.</li>
             <li>Reproducible data pipelines, versioned artefacts, CI/CD, testing, and software architecture with Git, Docker, Proxmox, Linux, GPU workflows, and cloud fundamentals.</li>
           </ul>
@@ -367,7 +367,7 @@
               just engineering convention.</li>
             <li>Working across clinicians, pathologists, and engineers: structured problem framing, clear scientific
               writing, and transparent uncertainty.</li>
-            <li>International environments; reproducibility as a research value; calm execution under deadlines.</li>
+            <li>Experience in international environments, a strong reproducibility mindset, and calm execution under deadlines.</li>
           </ul>
         </article>
       </div>
@@ -431,9 +431,7 @@
   <section id="skills" class="section" data-reveal>
     <div class="container">
       <p class="section__kicker">Skills</p>
-      <h2 class="section__title">What I Work With</h2>
-      <p class="section__subtitle">Two master's degrees — one from the wet lab, one in deep learning — converging on
-        end-to-end medical AI: from raw WSI to trained model to reproducible report.</p>
+      <h2 class="section__title">Technical and Domain Skills</h2>
 
       <div class="skills-block">
 
@@ -550,9 +548,9 @@
         <div class="about-text" data-reveal>
           <p>I care about correctness more than cleverness. I'd rather build a simple,
             well-validated pipeline I can defend in a methods section than an elaborate
-            one I can't fully explain. That instinct comes from scientific training -
-            where you're accountable for your methodology, not just your results -
-            and it travels with me into every engineering problem I touch.</p>
+            one I can't fully explain. That instinct comes from scientific training, where
+            you're accountable for your methodology, not just your results, and it carries
+            into every engineering problem I work on.</p>
           <p>What I find most interesting is working at the boundary between disciplines:
             where biological questions meet computational methods, where a model's output
             has to mean something to a clinician, where the right answer requires
@@ -560,8 +558,8 @@
             and where I do my best work.</p>
           <p>The same instinct carries outside work. I'd rather ski a long trail through
             forest than a lifeless slope, ride proper bush on a mountain bike, and find
-            the good coffee in a city before the obvious one. I read widely - history,
-            philosophy, science - because the most useful ideas rarely stay in their
+            the good coffee in a city before the obvious one. I read widely in history,
+            philosophy, and science because the most useful ideas rarely stay in their
             original field.</p>
         </div>
         <div class="gallery" data-reveal>
@@ -610,7 +608,7 @@
         <p class="contact__body">If you're building biomedical / clinical AI and care about infra and reliability,
           I'm happy to connect. Available in Finnish and English.</p>
         <p class="contact__closing">
-          I work well at the interface between disciplines: translating clinical and biological questions into ML
+          I work well at the interface between disciplines, translating clinical and biological questions into ML
           systems that are technically defensible, interpretable, and deployable.
         </p>
         <div class="contact__icons">
