@@ -216,12 +216,13 @@
         </p>
 
         <p class="thesis-feature__body">
-          My thesis builds a staged, contract-driven computational pipeline for slide-level SARIFA detection
-          across the TCGA colorectal cancer cohort (~200 patients, ~250 GB of whole-slide images). The emphasis is
-          on rigorous ML engineering: every modelling decision is pre-declared in a stage contract, splits are fixed and
-          patient-disjoint, and the held-out test set is opened exactly once per model. The tile classifier achieves
-          AUROC 0.985 across five seeds. The current patient-level baseline (non-parametric top-k aggregation)
-          reaches test AUROC 0.849, AUPRC 0.821. A learned multiple-instance learning stage is in progress.
+          My thesis builds a staged, contract-driven pipeline for slide-level SARIFA detection across the TCGA
+          colorectal cancer cohort (~200 patients, ~250 GB of whole-slide images). The emphasis is on rigorous ML
+          engineering: modelling decisions are pre-declared, splits are fixed and patient-disjoint, and the held-out
+          test set is opened exactly once per model. The tile classifier reaches AUROC 0.985 across five seeds, and
+          the current patient-level baseline (non-parametric top-k aggregation) reaches test AUROC 0.849, AUPRC
+          0.821. A learned multiple-instance learning stage is in progress. A separate final test set of Finnish CRC
+          patients is reserved for the final locked evaluation pass.
         </p>
 
         <div class="thesis-feature__aims">
@@ -232,7 +233,7 @@
               ResNet-50 trained to classify 512&thinsp;×&thinsp;512&thinsp;px H&amp;E tiles as SARIFA-positive or
               negative. Three-zone label policy — POS (ROI overlap), IGNORE (boundary band), NEG (negative slides
               only) — prevents false-negative injection from incompletely annotated positive slides. Focal loss,
-              balanced sampling, post-hoc temperature calibration.
+              balanced sampling, and post-hoc temperature calibration.
             </p>
           </div>
 
@@ -243,7 +244,7 @@
               Non-parametric top-k pooling as the locked baseline, followed by attention-based MIL (ABMIL) with a
               partial instance supervision head. The instance head is trained on annotated POS tiles and confirmed-NEG
               tiles; high-scoring ambiguous tiles identified in pathologist review are excluded from instance loss
-              rather than forced to zero — preserving true signal outside annotation boundaries.
+              rather than forced to zero, preserving true signal outside annotation boundaries.
             </p>
           </div>
 
@@ -254,8 +255,8 @@
               Calibrated score heatmaps over full WSI thumbnails, ROI-contact enrichment analysis, and spatial
               geometry of the high-scoring tile subset — boundary proximity, connected-component span,
               Spearman correlation between slide score and distance to annotated invasion front
-              (ρ&thinsp;=&thinsp;0.68, p&thinsp;=&thinsp;0.00069). Attention maps from the MIL stage will extend
-              this to a learned localization signal.
+              (ρ&thinsp;=&thinsp;0.68, p&thinsp;=&thinsp;0.00069). Attention maps from the MIL stage extend this
+              toward a learned localization signal.
             </p>
           </div>
         </div>
@@ -273,7 +274,7 @@
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>ResNet-50 tile classifier: focal loss (α 0.25, γ 2.0), AdamW, balanced 1:1 sampling — AUROC 0.985 ± 0.001 across 5 seeds</span>
+              <span>ResNet-50 tile classifier: focal loss (α 0.25, γ 2.0), AdamW, balanced 1:1 sampling — AUROC 0.985 ± 0.001 across five seeds</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
@@ -281,7 +282,7 @@
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Top-k aggregation (locked k=1): test AUROC 0.849, AUPRC 0.821; ABMIL with instance supervision head in progress</span>
+              <span>Top-k aggregation (locked k=1): test AUROC 0.849, AUPRC 0.821; ABMIL with instance supervision in progress</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
@@ -339,11 +340,10 @@
           <h3 class="card__title">Applied ML &amp; Data Science</h3>
           <p class="card__meta">Computational pathology · ML systems · Evaluation</p>
           <ul class="card__list">
-            <li>Deep learning and CV pipelines for computational pathology and biomedical imaging.</li>
-            <li>Python (SciPy, PyTorch) on Linux; reproducible evaluation runs and clean experiment
-              artifacts.</li>
-            <li>GPU workflows, Docker/Proxmox, CI/CD with Git; pragmatic ops mindset (observability, failure modes,
-              deployment constraints).</li>
+            <li>Deep learning, computer vision, NLP, attention mechanisms, model evaluation, and tuning for computational pathology and biomedical imaging.</li>
+            <li>PyTorch, scikit-learn, MLflow, and modern Python scientific tooling; R and SQL when the problem calls for them.</li>
+            <li>Generative AI and LLM workflows: local models, custom harnesses, fine-tuning, RAG, knowledge-graph retrieval, and MCP-based agentic tool use.</li>
+            <li>Reproducible data pipelines, versioned artefacts, CI/CD, testing, and software architecture with Git, Docker, Proxmox, Linux, GPU workflows, and cloud fundamentals.</li>
           </ul>
         </article>
 
@@ -383,8 +383,10 @@
       <h2 class="section__title">Things I've Built</h2>
 
       <div class="card-grid card-grid--cols-3">
-        <article class="card card--tech-infra" data-reveal>
+        <article class="card card--tech-infra card--link" data-reveal>
           <div class="card__accent"></div>
+          <a href="https://github.com/aamik/abm_city" target="_blank" rel="noopener noreferrer"
+            class="card__stretched-link" aria-label="Open ABM City on GitHub"></a>
           <h3 class="card__title">ABM City</h3>
           <p class="card__meta">Agent-based simulation · Epidemiology · Interactive dashboard</p>
           <p class="card__body">
@@ -396,8 +398,10 @@
             class="card__link">GitHub →</a>
         </article>
 
-        <article class="card card--tech-sci" data-reveal>
+        <article class="card card--tech-sci card--link" data-reveal>
           <div class="card__accent"></div>
+          <a href="https://github.com/aamik/rl_car_racing" target="_blank" rel="noopener noreferrer"
+            class="card__stretched-link" aria-label="Open RL Car Racing on GitHub"></a>
           <h3 class="card__title">RL Car Racing</h3>
           <p class="card__meta">Reinforcement learning · PPO · Computer vision</p>
           <p class="card__body">
@@ -616,8 +620,8 @@
         <p class="contact__body">If you're building biomedical / clinical AI and care about infra and reliability,
           I'm happy to connect. Available in Finnish and English.</p>
         <p class="contact__closing">
-          What I bring that's harder to find is the combination: I can talk to a pathologist about invasion front
-          biology and then go implement the segmentation pipeline.
+          I work well at the interface between disciplines: translating clinical and biological questions into ML
+          systems that are technically defensible, interpretable, and deployable.
         </p>
         <div class="contact__icons">
           <a href="#" data-telegram-link class="contact__icon" title="Telegram" aria-label="Telegram" target="_blank"
