@@ -811,11 +811,13 @@ ul { list-style: none; }
 
 .pill__label { font-size: var(--fs-small); color: var(--ink); font-weight: 500; }
 .pill__level {
-  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
-  padding: 0.08rem 0.45rem; border-radius: 20px;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 999px;
+  flex-shrink: 0;
 }
-.pill__level--expert, .pill__level--native { background: color-mix(in srgb, var(--ink-muted) 12%, transparent); color: var(--ink-muted); }
-.pill__level--advanced { background: color-mix(in srgb, var(--ink-faint) 10%, transparent); color: var(--ink-faint); }
+.pill__level--expert, .pill__level--native { background: color-mix(in srgb, var(--ink) 20%, transparent); }
+.pill__level--advanced { background: color-mix(in srgb, var(--ink-faint) 10%, transparent); }
 .pill__level--moderate { background: color-mix(in srgb, var(--ink-faint) 8%, transparent); color: var(--ink-faint); }
 .pill__level--basic { background: color-mix(in srgb, var(--ink-faint) 6%, transparent); color: var(--ink-faint); }
 

@@ -186,7 +186,7 @@
   <!-- ═══════════ THESIS ═══════════ -->
   <section id="thesis" class="section" data-reveal>
     <div class="container">
-      <p class="section__kicker">Master's Thesis, Spring 2026</p>
+      <p class="section__kicker">Master's Thesis, H2 2026</p>
       <h2 class="section__title">Digital Pathology Research</h2>
 
       <div class="thesis-feature" data-reveal>
@@ -200,7 +200,8 @@
             </svg>
           </div>
           <div>
-            <h3 class="thesis-feature__title">Deep Learning Detection of SARIFA in Colorectal Cancer Whole-Slide Images</h3>
+            <h3 class="thesis-feature__title">Deep Learning Detection of SARIFA in Colorectal Cancer Whole-Slide Images
+            </h3>
             <p class="thesis-feature__subtitle">
               Tile classification · Multiple-instance learning · Weakly supervised WSI analysis · Tumor microenvironment
             </p>
@@ -208,7 +209,8 @@
         </div>
 
         <p class="thesis-feature__body">
-          <strong>SARIFA</strong> (Stroma AReactive Invasion Front Areas) is a histomorphologic feature defined by direct
+          <strong>SARIFA</strong> (Stroma AReactive Invasion Front Areas) is a histomorphologic feature defined by
+          direct
           contact between tumor cell clusters and adipose tissue at the invasion front, without the expected
           desmoplastic stromal barrier. SARIFA-positivity is an independent prognostic marker in colorectal and other
           gastrointestinal cancers, linked to altered immune microenvironment and tumor–adipocyte metabolic
@@ -266,27 +268,33 @@
           <div class="thesis-methods-grid">
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>202 TCGA-CRC whole-slide images, 69 SARIFA-positive, patient-disjoint 70/15/15 split stratified by ROI yield</span>
+              <span>202 TCGA-CRC whole-slide images, 69 SARIFA-positive, patient-disjoint 70/15/15 split stratified by
+                ROI yield</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>4.2 million manifest-backed tiles from QuPath GeoJSON through Shapely to 3-zone label assignment with micron-calibrated boundary bands</span>
+              <span>4.2 million manifest-backed tiles from QuPath GeoJSON through Shapely to 3-zone label assignment
+                with micron-calibrated boundary bands</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>ResNet-50 tile classifier with focal loss (α 0.25, γ 2.0), AdamW, balanced 1:1 sampling, and AUROC 0.985 ± 0.001 across five seeds</span>
+              <span>ResNet-50 tile classifier with focal loss (α 0.25, γ 2.0), AdamW, balanced 1:1 sampling, and AUROC
+                0.985 ± 0.001 across five seeds</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Full-manifest WSI inference to calibrated score parquet, with temperature scaling fitted on class-balanced validation tiles</span>
+              <span>Full-manifest WSI inference to calibrated score parquet, with temperature scaling fitted on
+                class-balanced validation tiles</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Top-k aggregation (locked k=1) gives test AUROC 0.849 and AUPRC 0.821. ABMIL with instance supervision is in progress</span>
+              <span>Top-k aggregation (locked k=1) gives test AUROC 0.849 and AUPRC 0.821. ABMIL with instance
+                supervision is in progress</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Attention map outputs per patient for spatial comparison with annotated ROI geometry and heatmap overlays</span>
+              <span>Attention map outputs per patient for spatial comparison with annotated ROI geometry and heatmap
+                overlays</span>
             </div>
           </div>
         </div>
@@ -296,19 +304,23 @@
           <div class="thesis-methods-grid">
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Pre-declared contracts. Evaluation metrics, thresholds, and locked decisions are written before results are seen, not reverse-engineered from them</span>
+              <span>Pre-declared contracts. Evaluation metrics, thresholds, and locked decisions are written before
+                results are seen, not reverse-engineered from them</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Audit trail through versioned parquet artefacts with SHA-256 hashes, staged run directories, and reproducible splits</span>
+              <span>Audit trail through versioned parquet artefacts with SHA-256 hashes, staged run directories, and
+                reproducible splits</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Failure modes first, with Gate A (Grad-CAM), Gate B (pathologist tile review), and explicit documentation of marginal gate passes and known limitations</span>
+              <span>Failure modes first, with Gate A (Grad-CAM), Gate B (pathologist tile review), and explicit
+                documentation of marginal gate passes and known limitations</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span>Slice-aware evaluation with TSS site monitoring, per-split label counts, and documented val-test AUROC gaps</span>
+              <span>Slice-aware evaluation with TSS site monitoring, per-split label counts, and documented val-test
+                AUROC gaps</span>
             </div>
           </div>
         </div>
@@ -319,7 +331,9 @@
           <div class="thesis-methods-grid">
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span><em>In preparation.</em> Mikkola et al. Weakly supervised SARIFA detection in colorectal cancer whole-slide images using tile classification and multiple-instance learning. Expected submission Q3 to Q4 2026.</span>
+              <span><em>In preparation.</em> Mikkola et al. Weakly supervised SARIFA detection in colorectal cancer
+                whole-slide images using tile classification and multiple-instance learning. Expected submission Q3 to
+                Q4 2026.</span>
             </div>
           </div>
         </div>
@@ -340,10 +354,14 @@
           <h3 class="card__title">Applied ML &amp; Data Science</h3>
           <p class="card__meta">Computational pathology · ML systems · Evaluation</p>
           <ul class="card__list">
-            <li>Deep learning, computer vision, NLP, attention mechanisms, model evaluation, and tuning for computational pathology and biomedical imaging.</li>
-            <li>PyTorch, scikit-learn, MLflow, and modern Python scientific tooling. R and SQL when the problem calls for them.</li>
-            <li>Generative AI and LLM workflows: local models, custom harnesses, fine-tuning, RAG, knowledge-graph retrieval, and MCP-based agentic tool use.</li>
-            <li>Reproducible data pipelines, versioned artefacts, CI/CD, testing, and software architecture with Git, Docker, Proxmox, Linux, GPU workflows, and cloud fundamentals.</li>
+            <li>Deep learning, computer vision, NLP, attention mechanisms, model evaluation, and tuning for
+              computational pathology and biomedical imaging.</li>
+            <li>PyTorch, scikit-learn, MLflow, and modern Python scientific tooling. R and SQL when the problem calls
+              for them.</li>
+            <li>Generative AI and LLM workflows: local models, custom harnesses, fine-tuning, RAG, knowledge-graph
+              retrieval, and MCP-based agentic tool use.</li>
+            <li>Reproducible data pipelines, versioned artefacts, CI/CD, testing, and software architecture with Git,
+              Docker, Proxmox, Linux, GPU workflows, and cloud fundamentals.</li>
           </ul>
         </article>
 
@@ -367,7 +385,8 @@
               just engineering convention.</li>
             <li>Working across clinicians, pathologists, and engineers: structured problem framing, clear scientific
               writing, and transparent uncertainty.</li>
-            <li>Experience in international environments, a strong reproducibility mindset, and calm execution under deadlines.</li>
+            <li>Experience in international environments, a strong reproducibility mindset, and calm execution under
+              deadlines.</li>
           </ul>
         </article>
       </div>
@@ -421,7 +440,8 @@
       </div>
 
       <div class="section__cta" data-reveal>
-        <p class="section__note">If you want more detail, I can share code, evaluation notes, or implementation details.</p>
+        <p class="section__note">If you want more detail, I can share code, evaluation notes, or implementation details.
+        </p>
         <a href="#" data-email-link class="btn btn--outline">Get in touch</a>
       </div>
     </div>
@@ -440,29 +460,29 @@
           <h2 class="section__title section__title--tech">AI &amp; Engineering</h2>
           <div class="pill-grid">
             <div class="pill pill--tech" data-reveal><span class="pill__label">Python</span><span
-                class="pill__level pill__level--expert">Expert</span></div>
+                class="pill__level pill__level--expert" aria-hidden="true"></span></div>
             <div class="pill pill--tech" data-reveal><span class="pill__label">PyTorch</span><span
-                class="pill__level pill__level--expert">Expert</span></div>
-            <div class="pill pill--tech" data-reveal><span class="pill__label">WSI &amp; Medical Image Analysis</span><span
-                class="pill__level pill__level--expert">Expert</span></div>
+                class="pill__level pill__level--expert" aria-hidden="true"></span></div>
+            <div class="pill pill--tech" data-reveal><span class="pill__label">WSI &amp; Medical Image
+                Analysis</span><span class="pill__level pill__level--expert" aria-hidden="true"></span></div>
             <div class="pill pill--tech" data-reveal><span class="pill__label">Experiment Tracking · MLOps</span><span
-                class="pill__level pill__level--expert">Expert</span></div>
+                class="pill__level pill__level--expert" aria-hidden="true"></span></div>
             <div class="pill pill--tech" data-reveal><span class="pill__label">Foundation Models</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--tech" data-reveal><span class="pill__label">Model Explainability</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--tech" data-reveal><span class="pill__label">Data Pipelines & CI/CD</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--tech" data-reveal><span class="pill__label">AI Agent Systems</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--infra" data-reveal><span class="pill__label">Linux &amp; Infrastructure</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--infra" data-reveal><span class="pill__label">Docker &amp;
-                Containerization</span><span class="pill__level pill__level--advanced">Advanced</span></div>
+                Containerization</span><span class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--infra" data-reveal><span class="pill__label">GPU Compute</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--infra" data-reveal><span class="pill__label">Software Engineering</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
           </div>
         </div>
 
@@ -472,23 +492,23 @@
           <h2 class="section__title section__title--bio">Biomedical</h2>
           <div class="pill-grid">
             <div class="pill pill--bio" data-reveal><span class="pill__label">Cell &amp; Molecular Biology
-                Lab</span><span class="pill__level pill__level--expert">Expert</span></div>
+                Lab</span><span class="pill__level pill__level--expert" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">Digital Pathology</span><span
-                class="pill__level pill__level--expert">Expert</span></div>
+                class="pill__level pill__level--expert" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">Immunology</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">Histology &amp; Microscopy</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">CRISPR-Cas9 &amp; Cloning</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">qPCR</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">DNA Sequencing</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">Protein Dynamics</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--bio" data-reveal><span class="pill__label">Bioinformatics</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
 
           </div>
         </div>
@@ -499,19 +519,19 @@
           <h2 class="section__title section__title--sci">Analytical Rigour</h2>
           <div class="pill-grid">
             <div class="pill pill--sci" data-reveal><span class="pill__label">Experimental Design</span><span
-                class="pill__level pill__level--expert">Expert</span></div>
+                class="pill__level pill__level--expert" aria-hidden="true"></span></div>
             <div class="pill pill--sci" data-reveal><span class="pill__label">Statistical Analysis</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--sci" data-reveal><span class="pill__label">Simulation Methods</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--sci" data-reveal><span class="pill__label">Reproducible Research</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--sci" data-reveal><span class="pill__label">Applied Mathematics</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--sci" data-reveal><span class="pill__label">Scientific Writing</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
             <div class="pill pill--sci" data-reveal><span class="pill__label">Data Visualisation</span><span
-                class="pill__level pill__level--advanced">Advanced</span></div>
+                class="pill__level pill__level--advanced" aria-hidden="true"></span></div>
           </div>
         </div>
       </div>
