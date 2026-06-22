@@ -392,7 +392,8 @@ function initClickableCards() {
     if (!link) return;
 
     card.addEventListener('click', e => {
-      if (e.target.closest('a, button')) return;
+      const target = e.target.nodeType === Node.TEXT_NODE ? e.target.parentElement : e.target;
+      if (target && target.closest('a, button')) return;
       window.open(link.href, link.target || '_self', 'noopener,noreferrer');
     });
   });
