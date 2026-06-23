@@ -797,20 +797,23 @@ ul { list-style: none; }
   transition: all var(--transition);
 }
 .pill--expert {
-  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
-  border-color: color-mix(in srgb, var(--ink) 16%, transparent);
+  background: var(--surface);
 }
 .pill:hover {
   border-color: var(--accent); transform: translateY(-1px);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 8%, transparent);
 }
 .pill--tech { border-color: color-mix(in srgb, var(--accent-tech) 40%, transparent); }
+.pill--tech.pill--expert { border-color: color-mix(in srgb, var(--accent-tech) 68%, transparent); }
 .pill--tech:hover { border-color: var(--accent-tech); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-tech) 15%, transparent); }
 .pill--bio { border-color: color-mix(in srgb, var(--accent-bio) 40%, transparent); }
+.pill--bio.pill--expert { border-color: color-mix(in srgb, var(--accent-bio) 68%, transparent); }
 .pill--bio:hover { border-color: var(--accent-bio); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-bio) 15%, transparent); }
 .pill--sci { border-color: color-mix(in srgb, var(--accent-sci) 40%, transparent); }
+.pill--sci.pill--expert { border-color: color-mix(in srgb, var(--accent-sci) 68%, transparent); }
 .pill--sci:hover { border-color: var(--accent-sci); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-sci) 15%, transparent); }
 .pill--infra { border-color: color-mix(in srgb, var(--accent-infra) 40%, transparent); }
+.pill--infra.pill--expert { border-color: color-mix(in srgb, var(--accent-infra) 68%, transparent); }
 .pill--infra:hover { border-color: var(--accent-infra); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-infra) 15%, transparent); }
 
 .pill__label { font-size: var(--fs-small); color: var(--ink); font-weight: 500; }
