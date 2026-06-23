@@ -691,6 +691,52 @@ ul { list-style: none; }
   background: color-mix(in srgb, var(--accent-tech) 1.5%, color-mix(in srgb, var(--accent-infra) 1.5%, var(--surface)));
   border-color: color-mix(in srgb, var(--accent-tech) 8%, color-mix(in srgb, var(--accent-infra) 8%, transparent));
 }
+.card--project-rl {
+  --card-accent-bg: linear-gradient(
+    to bottom,
+    var(--accent-tech),
+    color-mix(in srgb, var(--accent-tech) 45%, var(--accent-sci))
+  );
+  background: color-mix(in srgb, var(--accent-tech) 2.2%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent-tech) 18%, transparent);
+}
+.card--project-abm {
+  --card-accent-bg: linear-gradient(
+    to bottom,
+    var(--accent-tech) 0%,
+    var(--accent-bio) 40%,
+    var(--accent-infra) 72%,
+    var(--accent-sci) 100%
+  );
+  background: color-mix(
+    in srgb,
+    var(--accent-tech) 1.2%,
+    color-mix(
+      in srgb,
+      var(--accent-bio) 1.2%,
+      color-mix(in srgb, var(--accent-infra) 1.2%, color-mix(in srgb, var(--accent-sci) 1.2%, var(--surface)))
+    )
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--accent-tech) 7%,
+    color-mix(
+      in srgb,
+      var(--accent-bio) 7%,
+      color-mix(in srgb, var(--accent-infra) 7%, color-mix(in srgb, var(--accent-sci) 7%, transparent))
+    )
+  );
+}
+.card--project-homelab {
+  --card-accent-bg: linear-gradient(
+    to bottom,
+    var(--accent-tech) 0%,
+    color-mix(in srgb, var(--accent-tech) 55%, var(--accent-infra)) 45%,
+    var(--accent-infra) 100%
+  );
+  background: color-mix(in srgb, var(--accent-tech) 1.3%, color-mix(in srgb, var(--accent-infra) 2.1%, var(--surface)));
+  border-color: color-mix(in srgb, var(--accent-tech) 9%, color-mix(in srgb, var(--accent-infra) 14%, transparent));
+}
 .card__title {
   font-family: var(--font-serif); font-size: var(--fs-h3); font-weight: 600;
   color: var(--ink); margin-bottom: 0.3rem; line-height: 1.3;
@@ -798,22 +844,35 @@ ul { list-style: none; }
 }
 .pill--expert {
   background: var(--surface);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 6%, transparent);
 }
 .pill:hover {
   border-color: var(--accent); transform: translateY(-1px);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 8%, transparent);
 }
 .pill--tech { border-color: color-mix(in srgb, var(--accent-tech) 40%, transparent); }
-.pill--tech.pill--expert { border-color: color-mix(in srgb, var(--accent-tech) 68%, transparent); }
+.pill--tech.pill--expert {
+  border-color: color-mix(in srgb, var(--accent-tech) 82%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-tech) 10%, transparent);
+}
 .pill--tech:hover { border-color: var(--accent-tech); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-tech) 15%, transparent); }
 .pill--bio { border-color: color-mix(in srgb, var(--accent-bio) 40%, transparent); }
-.pill--bio.pill--expert { border-color: color-mix(in srgb, var(--accent-bio) 68%, transparent); }
+.pill--bio.pill--expert {
+  border-color: color-mix(in srgb, var(--accent-bio) 82%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-bio) 10%, transparent);
+}
 .pill--bio:hover { border-color: var(--accent-bio); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-bio) 15%, transparent); }
 .pill--sci { border-color: color-mix(in srgb, var(--accent-sci) 40%, transparent); }
-.pill--sci.pill--expert { border-color: color-mix(in srgb, var(--accent-sci) 68%, transparent); }
+.pill--sci.pill--expert {
+  border-color: color-mix(in srgb, var(--accent-sci) 82%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-sci) 10%, transparent);
+}
 .pill--sci:hover { border-color: var(--accent-sci); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-sci) 15%, transparent); }
 .pill--infra { border-color: color-mix(in srgb, var(--accent-infra) 40%, transparent); }
-.pill--infra.pill--expert { border-color: color-mix(in srgb, var(--accent-infra) 68%, transparent); }
+.pill--infra.pill--expert {
+  border-color: color-mix(in srgb, var(--accent-infra) 82%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-infra) 10%, transparent);
+}
 .pill--infra:hover { border-color: var(--accent-infra); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-infra) 15%, transparent); }
 
 .pill__label { font-size: var(--fs-small); color: var(--ink); font-weight: 500; }
