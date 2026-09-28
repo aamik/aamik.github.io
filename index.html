@@ -7,14 +7,14 @@
   <title>Aapo Mikkola — Medical AI Engineer & Life Scientist</title>
 
   <meta name="description"
-    content="Aapo Mikkola — Medical AI engineer and molecular biologist. I build end-to-end medical AI systems: from whole-slide image analysis to reproducible deployment. Two master's degrees converging on trustworthy clinical AI." />
+    content="Aapo Mikkola — Medical AI engineer and molecular biologist. Computational pathology research combining tile classification, attention-based learning, and reproducible patient-level evaluation." />
   <meta name="author" content="Aapo Mikkola" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Aapo Mikkola — Medical AI Engineer & Molecular Biologist" />
   <meta property="og:description"
-    content="End-to-end medical AI: whole-slide image analysis, deep learning pipelines, and reproducible deployment. Two master's degrees converging on trustworthy clinical AI." />
+    content="Computational pathology research combining tile classification, attention-based learning, and reproducible patient-level evaluation." />
   <meta property="og:image" content="/images/favicon.png" />
   <meta property="og:url" content="https://aamik.github.io/" />
 
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Aapo Mikkola — Medical AI Engineer & Molecular Biologist" />
   <meta name="twitter:description"
-    content="End-to-end medical AI: whole-slide image analysis, deep learning pipelines, and reproducible deployment." />
+    content="Computational pathology research combining tile classification, attention-based learning, and reproducible patient-level evaluation." />
   <meta name="twitter:image" content="/images/favicon.png" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
@@ -93,17 +93,19 @@
           <span class="hero__role-highlight">Molecular Biologist</span>
         </p>
 
-        <h1 class="hero__name">Aapo Mikkola</h1>
-        <div class="hero__accent-line"></div>
+        <div class="hero__name-block">
+          <h1 class="hero__name">Aapo Mikkola</h1>
+          <div class="hero__accent-line" aria-hidden="true"></div>
+        </div>
 
         <p class="hero__desc" id="typewriter">
-          I build medical AI that survives contact with reality. <!--This is overwritten in main.js-->
+          I build machine learning systems for medical imaging and understand the biology behind them.
         </p>
 
         <div class="hero__tags">
           <a href="#skills"><span class="tag tag--tech">Medical Image Analysis</span></a>
           <a href="#skills"><span class="tag tag--tech">PyTorch</span></a>
-          <a href="#skills"><span class="tag tag--tech">Weakly Supervised Learning</span></a>
+          <a href="#skills"><span class="tag tag--tech">Multiple-Instance Learning</span></a>
           <a href="#skills"><span class="tag tag--bio">Digital Pathology</span></a>
           <a href="#skills"><span class="tag tag--infra">Linux &amp; Infrastructure</span></a>
           <a href="#skills"><span class="tag tag--sci">Reproducible Research</span></a>
@@ -305,7 +307,7 @@
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
               <span><strong>Controlled comparisons.</strong> Removing the negative-slide tile cap expanded the
-                field from 4.2 to 10.5 million tiles and removed a label-linked bag-size shortcut before the
+                field from 4.2 to 10.5 million tiles and removed a label-linked cap on bag size before the
                 main ABMIL comparison.</span>
             </div>
             <div class="thesis-method">
@@ -327,8 +329,8 @@
             Preparation is in progress for an independent Finnish colorectal cancer biobank cohort of
             approximately <strong>1,354 patients</strong>. The locked tile-classifier and top-1% pipeline will
             be tested on protected university servers, without using external outcomes to retune the model.
-            Resource-limited, streamed inference avoids a large tile cache. No external performance results
-            are available yet.
+            The planned inference workflow streams tiles without a large tile cache; server compatibility
+            and resource use will be checked before the full run. No external performance results are available yet.
           </p>
           <p class="thesis-results__note">Thesis and manuscript in preparation. Research software, not a clinical diagnostic tool.</p>
           <a href="https://github.com/aamik/sarifa-pipeline" class="card__link">Public pipeline repository →</a>
@@ -443,8 +445,8 @@
     <div class="container">
       <p class="section__kicker">Skills</p>
       <h2 class="section__title">What I Work With</h2>
-      <p class="section__subtitle">Two master's degrees — one from the wet lab, one in deep learning — converging on
-        end-to-end medical AI: from raw WSI to trained model to reproducible report.</p>
+      <p class="section__subtitle">A master's degree in cell and molecular biology and ongoing master's research in
+        computer science: from whole-slide images to trained models and reproducible evaluation.</p>
 
       <div class="skills-block">
 
@@ -676,8 +678,7 @@
     "jobTitle": "AI Engineer & Biomedical Scientist",
     "url": "https://aamik.github.io",
     "sameAs": [
-      "https://github.com/aamik",
-      "https://www.linkedin.com/"
+      "https://github.com/aamik"
     ],
     "knowsAbout": [
       "Medical Image Analysis",
