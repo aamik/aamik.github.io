@@ -226,9 +226,18 @@
         </p>
 
         <dl class="thesis-stats" aria-label="Project scale">
-          <div><dt>202 patients</dt><dd>TCGA colorectal cancer cohort</dd></div>
-          <div><dt>10.5 million tiles</dt><dd>Complete uncapped tissue field</dd></div>
-          <div><dt>5 seeds per MIL model</dt><dd>Fixed patient-level data split</dd></div>
+          <div>
+            <dt>202 patients</dt>
+            <dd>TCGA colorectal cancer cohort</dd>
+          </div>
+          <div>
+            <dt>10.5 million tiles</dt>
+            <dd>Complete uncapped tissue field</dd>
+          </div>
+          <div>
+            <dt>5 seeds per MIL model</dt>
+            <dd>Fixed patient-level data split</dd>
+          </div>
         </dl>
 
         <div class="thesis-feature__aims">
@@ -268,15 +277,38 @@
 
         <div class="thesis-feature__methods" data-reveal>
           <h4 class="thesis-feature__methods-title">Initial patient-level results</h4>
-          <div class="thesis-results" tabindex="0" role="region" aria-label="Internal test results, scroll horizontally on small screens">
+          <div class="thesis-results" tabindex="0" role="region"
+            aria-label="Internal test results, scroll horizontally on small screens">
             <table>
               <caption>Internal test: 33 patients, including 12 SARIFA-positive cases.</caption>
-              <thead><tr><th scope="col">Method</th><th scope="col">AUROC (95% CI)</th><th scope="col">AUPRC</th></tr></thead>
+              <thead>
+                <tr>
+                  <th scope="col">Method</th>
+                  <th scope="col">AUROC (95% CI)</th>
+                  <th scope="col">AUPRC</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><th scope="row">Fixed top-1%, original tile cap</th><td>0.849 <span>(0.683–0.956)</span></td><td>0.821</td></tr>
-                <tr><th scope="row">Fixed top-1%, uncapped</th><td>0.853 <span>(0.687–0.956)</span></td><td>0.818</td></tr>
-                <tr><th scope="row">Plain ABMIL, uncapped</th><td>0.806 <span>(0.615–0.940)</span></td><td>0.791</td></tr>
-                <tr><th scope="row">Annotation-ranking ABMIL, uncapped</th><td>0.813 <span>(0.631–0.933)</span></td><td>0.776</td></tr>
+                <tr>
+                  <th scope="row">Fixed top-1%, original tile cap</th>
+                  <td>0.849 <span>(0.683–0.956)</span></td>
+                  <td>0.821</td>
+                </tr>
+                <tr>
+                  <th scope="row">Fixed top-1%, uncapped</th>
+                  <td>0.853 <span>(0.687–0.956)</span></td>
+                  <td>0.818</td>
+                </tr>
+                <tr>
+                  <th scope="row">Plain ABMIL, uncapped</th>
+                  <td>0.806 <span>(0.615–0.940)</span></td>
+                  <td>0.791</td>
+                </tr>
+                <tr>
+                  <th scope="row">Annotation-ranking ABMIL, uncapped</th>
+                  <td>0.813 <span>(0.631–0.933)</span></td>
+                  <td>0.776</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -327,12 +359,12 @@
           <h4 class="thesis-feature__methods-title">Next: external Finnish biobank evaluation</h4>
           <p class="thesis-feature__body">
             Preparation is in progress for an independent Finnish colorectal cancer biobank cohort of
-            approximately <strong>1,354 patients</strong>. The locked tile-classifier and top-1% pipeline will
-            be tested on protected university servers, without using external outcomes to retune the model.
-            The planned inference workflow streams tiles without a large tile cache; server compatibility
-            and resource use will be checked before the full run. No external performance results are available yet.
+            approximately <strong>1,354 patients</strong>. The locked tile-classifier and the aggregation pipeline will
+            be tested on local patients under data-protection restrictions, without using external outcomes to retune
+            the model.
           </p>
-          <p class="thesis-results__note">Thesis and manuscript in preparation. Research software, not a clinical diagnostic tool.</p>
+          <p class="thesis-results__note">Thesis and manuscript in preparation. Research software, not a clinical
+            diagnostic tool.</p>
           <a href="https://github.com/aamik/sarifa-pipeline" class="card__link">Public pipeline repository →</a>
         </div>
 
