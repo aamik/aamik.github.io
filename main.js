@@ -3,197 +3,318 @@
    Illustrative tissue heatmap, scroll reveals and navigation
    ═══════════════════════════════════════════════════════ */
 
-// Illustrative tissue selection: a bounded flood fill, not model inference.
+// ─── Magic Wand WSI Interaction ───
+// Loads the big WSI image, computes an Otsu threshold for tissue detection,
+// and implements a "magic wand" style flood-fill selection on mouse hover.
 function initMagicWand() {
   const canvas = document.getElementById('bioCanvas');
-  const ctx = canvas?.getContext('2d');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const hero = document.getElementById('hero');
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const image = new Image();
-  const background = document.createElement('canvas');
-  const backgroundCtx = background.getContext('2d');
-  const overlay = document.createElement('canvas');
-  const overlayCtx = overlay.getContext('2d');
-  const previous = document.createElement('canvas');
-  const previousCtx = previous.getContext('2d');
-  let pixels, luminance, threshold, gridW, gridH;
-  let width = 0, height = 0, scale = 1, offsetX = 0, offsetY = 0;
-  let frame = 0, lastFrame = 0, visible = true, selection = null;
-  let previousAt = -Infinity, releasedAt = null;
-  const GROW_MS = 3000;
-  const FADE_MS = 600;
-  const palette = [[35, 75, 190], [20, 175, 210], [250, 215, 75], [215, 45, 45]];
-  const colors = Array.from({ length: 256 }, (_, i) => {
-    const position = i / 255 * (palette.length - 1);
-    const low = Math.min(palette.length - 2, Math.floor(position));
-    return palette[low].map((value, c) => Math.round(value + (palette[low + 1][c] - value) * (position - low)));
+  // Colour and opacity affect presentation only; the original tissue mask stays intact.
+  const stops = [[35, 75, 190], [20, 175, 210], [250, 215, 75], [215, 45, 45]];
+  const palette = Array.from({ length: 64 }, (_, i) => {
+    const position = i / 63 * 3;
+    const low = Math.min(2, Math.floor(position));
+    const rgb = stops[low].map((value, c) => Math.round(value + (stops[low + 1][c] - value) * (position - low)));
+    return `rgb(${rgb.join(',')})`;
   });
-
-  function schedule() {
-    if (!frame && visible && !document.hidden && image.naturalWidth) frame = requestAnimationFrame(render);
+  let frame = 0;
+  let visible = true;
+  function scheduleRender() {
+    if (!frame && visible && !document.hidden && imgLoaded) frame = requestAnimationFrame(render);
   }
+  const img = new Image();
 
-  function initGrid() {
-    gridW = Math.min(640, image.naturalWidth);
-    gridH = Math.round(gridW * image.naturalHeight / image.naturalWidth);
-    overlay.width = previous.width = gridW;
-    overlay.height = previous.height = gridH;
-    // Smooth the analysis mask, while preserving the sharp displayed tissue.
-    overlayCtx.filter = 'blur(2px)';
-    overlayCtx.drawImage(image, 0, 0, gridW, gridH);
-    overlayCtx.filter = 'none';
-    const data = overlayCtx.getImageData(0, 0, gridW, gridH).data;
-    luminance = new Uint8Array(gridW * gridH);
-    const histogram = new Uint32Array(256);
-    let total = 0;
-    for (let i = 0; i < luminance.length; i++) {
-      const value = Math.round(data[i * 4] * 0.299 + data[i * 4 + 1] * 0.587 + data[i * 4 + 2] * 0.114);
-      luminance[i] = value;
-      histogram[value]++;
-      total += value;
+  let width, height; // canvas dimensions
+  let offCanvas, offCtx;
+  let grid = []; // 2D array of { isTissue, x, y }
+  let gridW, gridH;
+
+  // State
+  let highlights = []; // { c, r, alpha }
+  let mouse = { x: -9999, y: -9999 };
+  let imgLoaded = false;
+  let renderParams = { scale: 1, offsetX: 0, offsetY: 0 };
+
+  // Dwell tracking: grow effect after 1s of staying still
+  let dwellStart = 0;
+  let dwellPos = { x: -9999, y: -9999 };
+  const DWELL_THRESHOLD = 1000; // ms before growth kicks in
+  const DWELL_MOVE_TOLERANCE = 30; // px
+
+  // 1. Otsu Thresholding
+  function computeOtsu(data) {
+    const histogram = new Array(256).fill(0);
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i], g = data[i+1], b = data[i+2];
+      const lum = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+      histogram[lum]++;
     }
-    let count = 0, sum = 0, best = 0;
-    threshold = 128;
+    const total = data.length / 4;
+    let sum = 0;
+    for (let i = 0; i < 256; i++) sum += i * histogram[i];
+    let sumB = 0, wB = 0, wF = 0;
+    let maxVar = 0, threshold = 0;
     for (let i = 0; i < 256; i++) {
-      count += histogram[i];
-      sum += histogram[i] * i;
-      const remaining = luminance.length - count;
-      if (!count || !remaining) continue;
-      const difference = sum / count - (total - sum) / remaining;
-      const variance = count * remaining * difference * difference;
-      if (variance > best) { best = variance; threshold = i + 18; }
+      wB += histogram[i];
+      if (wB === 0) continue;
+      wF = total - wB;
+      if (wF === 0) break;
+      sumB += i * histogram[i];
+      const mB = sumB / wB;
+      const mF = (sum - sumB) / wF;
+      const varBetween = wB * wF * (mB - mF) * (mB - mF);
+      if (varBetween > maxVar) {
+        maxVar = varBetween;
+        threshold = i;
+      }
     }
-    pixels = overlayCtx.createImageData(gridW, gridH);
-    overlayCtx.clearRect(0, 0, gridW, gridH);
+    // Bias threshold higher to capture more dark areas/stroma as tissue
+    return threshold + 8;
   }
 
-  function select(event) {
-    if (motion.matches || !image.naturalWidth) return;
-    if (event.target.closest('a, button, .hero__content')) { release(); return; }
-    if (event.type === 'pointermove' && event.pointerType === 'touch') return;
+  // 2. Init Analysis Grid
+  function initGrid() {
+    if (!imgLoaded) return;
+
+    // Ultra-high res analysis (1400px wide)
+    const analysisScale = Math.min(1, 1400 / img.naturalWidth);
+    const w = Math.floor(img.naturalWidth * analysisScale);
+    const h = Math.floor(img.naturalHeight * analysisScale);
+
+    offCanvas = document.createElement('canvas');
+    offCanvas.width = w;
+    offCanvas.height = h;
+    offCtx = offCanvas.getContext('2d', { willReadFrequently: true });
+    offCtx.drawImage(img, 0, 0, w, h);
+
+    const imageData = offCtx.getImageData(0, 0, w, h);
+    const data = imageData.data;
+    const threshold = computeOtsu(data);
+
+    // Block size 1 = per-pixel analysis on the downscaled canvas
+    const blockSize = 1;
+    gridW = Math.ceil(w / blockSize);
+    gridH = Math.ceil(h / blockSize);
+    grid = new Array(gridH).fill(0).map(() => new Array(gridW));
+
+    for (let y = 0; y < gridH; y++) {
+      for (let x = 0; x < gridW; x++) {
+        const sx = Math.min(x * blockSize, w-1);
+        const sy = Math.min(y * blockSize, h-1);
+        const idx = (Math.floor(sy) * w + Math.floor(sx)) * 4;
+        const lum = 0.299 * data[idx] + 0.587 * data[idx+1] + 0.114 * data[idx+2];
+        grid[y][x] = {
+          isTissue: lum < threshold,
+          lum: lum
+        };
+      }
+    }
+  }
+
+  // Mouse interactivity
+  function updatePointer(e) {
+    if (!imgLoaded || motion.matches) return;
+    if (e.type === 'pointermove' && e.pointerType === 'touch') return;
+    if (!offCanvas) initGrid();
     const rect = hero.getBoundingClientRect();
-    const x = event.clientX - rect.left, y = event.clientY - rect.top;
-    if (selection && releasedAt === null && Math.hypot(x - selection.x, y - selection.y) < 24) return;
-    if (!luminance) initGrid();
-    const gx = Math.floor((x - offsetX) / scale * gridW / image.naturalWidth);
-    const gy = Math.floor((y - offsetY) / scale * gridW / image.naturalWidth);
-    if (gx < 0 || gy < 0 || gx >= gridW || gy >= gridH) return;
-    const start = gy * gridW + gx;
-    // Keep empty slide background clear; only grow through tissue.
-    if (luminance[start] >= threshold) { release(); return; }
-    previousCtx.clearRect(0, 0, gridW, gridH);
-    previousCtx.drawImage(overlay, 0, 0);
-    previousAt = performance.now();
-    pixels.data.fill(0);
-    const visited = new Uint8Array(luminance.length);
-    const queue = [start];
-    const distances = [0];
-    visited[start] = 1;
-    const radius = 78;
-    // Circular reach and feathered edges avoid a square/diamond flood-fill outline.
-    // Fixed upper bound on work and storage per pointer selection.
-    for (let head = 0; head < queue.length && queue.length < 24000; head++) {
-      const index = queue[head], col = index % gridW;
-      const neighbors = [index - gridW, index + gridW];
-      if (col > 0) neighbors.push(index - 1, index - gridW - 1, index + gridW - 1);
-      if (col < gridW - 1) neighbors.push(index + 1, index - gridW + 1, index + gridW + 1);
-      for (const next of neighbors) {
-        if (next < 0 || next >= luminance.length || visited[next]) continue;
-        visited[next] = 1;
-        const distance = Math.hypot(next % gridW - gx, Math.floor(next / gridW) - gy);
-        if (distance <= radius && luminance[next] < threshold && Math.abs(luminance[next] - luminance[start]) < 85) {
-          queue.push(next);
-          distances.push(distance);
+    const nx = e.clientX - rect.left;
+    const ny = e.clientY - rect.top;
+    const dx = nx - dwellPos.x;
+    const dy = ny - dwellPos.y;
+    if (Math.sqrt(dx*dx + dy*dy) > DWELL_MOVE_TOLERANCE) {
+      dwellStart = performance.now();
+      dwellPos = { x: nx, y: ny };
+    }
+    mouse.x = nx;
+    mouse.y = ny;
+    scheduleRender();
+  }
+  function releasePointer() {
+    mouse.x = -9999;
+    dwellStart = 0;
+  }
+  hero.addEventListener('pointermove', updatePointer, { passive: true });
+  hero.addEventListener('pointerdown', updatePointer, { passive: true });
+  hero.addEventListener('pointerleave', releasePointer, { passive: true });
+  hero.addEventListener('pointercancel', releasePointer, { passive: true });
+  hero.addEventListener('pointerup', e => { if (e.pointerType === 'touch') releasePointer(); }, { passive: true });
+
+  function triggerFloodFill(sx, sy) {
+    const startNode = grid[sy][sx];
+    const targetIsTissue = startNode.isTissue;
+    const visited = new Set();
+    const queue = [[sx, sy, 0]];
+
+    // Grow the radius and throughput based on dwell time
+    const dwellMs = dwellStart > 0 ? performance.now() - dwellStart : 0;
+    const isDwelling = dwellMs > DWELL_THRESHOLD;
+    const dwellGrowth = isDwelling ? Math.min((dwellMs - DWELL_THRESHOLD) / 75, 800) : 0;
+    const maxDist = 120 + Math.floor(dwellGrowth);
+    const limit = 600 + Math.floor(dwellGrowth * 16);
+
+    visited.add(`${sx},${sy}`);
+    let added = 0;
+    const born = performance.now();
+
+    let head = 0;
+    while (head < queue.length && added < limit) {
+      const [cx, cy, dist] = queue[head++];
+
+      highlights.push({
+        c: cx, r: cy, alpha: 0.85 + Math.random() * 0.15, born,
+        color: palette[Math.round(63 * (1 - Math.min(1, dist / Math.max(12, Math.sqrt(limit)))))],
+      });
+      added++;
+
+      if (dist >= maxDist) continue;
+
+      const dirs = [[1,0], [-1,0], [0,1], [0,-1]];
+      for (let [dx, dy] of dirs) {
+        const nx = cx + dx, ny = cy + dy;
+        if (nx >= 0 && nx < gridW && ny >= 0 && ny < gridH) {
+          const key = `${nx},${ny}`;
+          if (!visited.has(key)) {
+            const neighbor = grid[ny][nx];
+            // Condition: Same class AND similar luminance (structure aware)
+            const lumDiff = Math.abs(neighbor.lum - startNode.lum);
+
+            if (neighbor.isTissue === targetIsTissue && lumDiff < 50) {
+               visited.add(key);
+               // Add organic randomness to edge growth
+               if (Math.random() > 0.1) {
+                 queue.push([nx, ny, dist + 1]);
+               }
+            }
+          }
         }
       }
     }
-    selection = { x, y, queue, distances, radius, startedAt: performance.now() };
-    releasedAt = null;
-    schedule();
-  }
-
-  function release() {
-    if (selection && releasedAt === null) { releasedAt = performance.now(); schedule(); }
   }
 
   function resize() {
     width = hero.clientWidth;
     height = hero.clientHeight;
+    // Set canvas resolution to match screen
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = background.width = Math.round(width * dpr);
-    canvas.height = background.height = Math.round(height * dpr);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    backgroundCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    if (!image.naturalWidth) return;
-    scale = Math.max(width / image.naturalWidth, height / image.naturalHeight) * 1.25;
-    offsetX = (width - image.naturalWidth * scale) / 2;
-    offsetY = (height - image.naturalHeight * scale) / 2;
-    const dark = document.documentElement.dataset.theme === 'dark';
-    backgroundCtx.globalAlpha = dark ? 0.3 : 0.4;
-    backgroundCtx.filter = dark ? 'grayscale(10%) contrast(1.2)' : 'contrast(1.1)';
-    backgroundCtx.drawImage(image, offsetX, offsetY, image.naturalWidth * scale, image.naturalHeight * scale);
-    schedule();
-  }
 
-  function render(now) {
-    frame = 0;
-    if (!visible || document.hidden) return;
-    if (now - lastFrame < 1000 / 30) { schedule(); return; }
-    lastFrame = now;
-    ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(background, 0, 0, width, height);
-    if (!selection || motion.matches) return;
-    const age = now - selection.startedAt;
-    const opacity = releasedAt === null ? 1 : Math.max(0, 1 - (now - releasedAt) / FADE_MS);
-    if (!opacity) { selection = null; overlayCtx.clearRect(0, 0, gridW, gridH); return; }
-    const { queue, distances } = selection;
-    const maxDistance = selection.radius;
-    for (let i = 0; i < queue.length; i++) {
-      const arrival = distances[i] / maxDistance * GROW_MS;
-      const fade = Math.max(0, Math.min(1, (age - arrival) / 220));
-      const heat = Math.round(255 * (1 - distances[i] / maxDistance));
-      const [r, g, b] = colors[heat];
-      const offset = queue[i] * 4;
-      pixels.data[offset] = r;
-      pixels.data[offset + 1] = g;
-      pixels.data[offset + 2] = b;
-      const edge = Math.max(0, Math.min(1, (1 - distances[i] / maxDistance) / 0.25));
-      const feather = edge * edge * (3 - 2 * edge);
-      pixels.data[offset + 3] = Math.round(135 * fade * feather);
+    // Calculate cover parameters with ZOOM
+    const ZOOM = 1.25;
+    if (img.naturalWidth) {
+      const heroAspect = width / height;
+      const imgAspect = img.naturalWidth / img.naturalHeight;
+      let scale, offsetX, offsetY;
+
+      if (heroAspect > imgAspect) {
+        scale = (width / img.naturalWidth) * ZOOM;
+        offsetX = (width - img.naturalWidth * scale) / 2;
+        offsetY = (height - img.naturalHeight * scale) / 2;
+      } else {
+        scale = (height / img.naturalHeight) * ZOOM;
+        offsetX = (width - img.naturalWidth * scale) / 2;
+        offsetY = (height - img.naturalHeight * scale) / 2;
+      }
+      renderParams = { scale, offsetX, offsetY };
     }
-    overlayCtx.putImageData(pixels, 0, 0);
-    const dw = image.naturalWidth * scale, dh = image.naturalHeight * scale;
-    ctx.save();
-    ctx.imageSmoothingEnabled = true;
-    ctx.globalAlpha = opacity * Math.max(0, 1 - (now - previousAt) / 250);
-    if (ctx.globalAlpha > 0) ctx.drawImage(previous, offsetX, offsetY, dw, dh);
-    ctx.globalAlpha = opacity;
-    ctx.drawImage(overlay, offsetX, offsetY, dw, dh);
-    ctx.restore();
-    if (age < GROW_MS + 250 || releasedAt !== null) schedule();
   }
 
-  hero.addEventListener('pointermove', select, { passive: true });
-  hero.addEventListener('pointerdown', select, { passive: true });
-  hero.addEventListener('pointerleave', release, { passive: true });
-  hero.addEventListener('pointerup', event => { if (event.pointerType === 'touch') release(); }, { passive: true });
-  hero.addEventListener('pointercancel', release, { passive: true });
-  new ResizeObserver(resize).observe(hero);
+  function render() {
+    frame = 0;
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw background image
+    if (imgLoaded && img.naturalWidth) {
+      const { scale, offsetX, offsetY } = renderParams;
+      const dw = img.naturalWidth * scale;
+      const dh = img.naturalHeight * scale;
+
+      ctx.save();
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      // Increased visibility as requested
+      ctx.globalAlpha = isDark ? 0.3 : 0.4;
+      ctx.filter = isDark
+        ? 'grayscale(10%) contrast(1.2)'
+        : 'contrast(1.1)'; // Removed blur for clarity
+
+      ctx.drawImage(img, offsetX, offsetY, dw, dh);
+      ctx.restore();
+    }
+
+    // Continuous Wand Trigger
+    if (imgLoaded && offCanvas && mouse.x > -9000) {
+       const { scale, offsetX, offsetY } = renderParams;
+       const imgX = (mouse.x - offsetX) / scale;
+       const imgY = (mouse.y - offsetY) / scale;
+       const analysisScale = offCanvas.width / img.naturalWidth;
+       const anaX = imgX * analysisScale;
+       const anaY = imgY * analysisScale;
+       const blockSize = 1;
+       const gx = Math.floor(anaX / blockSize);
+       const gy = Math.floor(anaY / blockSize);
+
+       if (gx >= 0 && gx < gridW && gy >= 0 && gy < gridH) {
+         triggerFloodFill(gx, gy);
+       }
+    }
+
+    if (highlights.length > 0) {
+       highlights = highlights.filter(h => h.alpha > 0.01);
+
+       if (imgLoaded && offCanvas) {
+         const analysisScale = offCanvas.width / img.naturalWidth;
+         const blockSize = 1; // matches initGrid
+         const finalScale = (blockSize / analysisScale) * renderParams.scale;
+         const startX = renderParams.offsetX;
+         const startY = renderParams.offsetY;
+
+         const now = performance.now();
+
+         for (const h of highlights) {
+           const screenX = startX + h.c * finalScale;
+           const screenY = startY + h.r * finalScale;
+
+           const progress = Math.min(1, (now - h.born) / 160);
+           const fadeIn = progress * progress * (3 - 2 * progress);
+           ctx.fillStyle = h.color;
+           ctx.globalAlpha = h.alpha * 0.35 * fadeIn;
+           ctx.fillRect(screenX, screenY, finalScale, finalScale);
+
+           h.alpha *= 0.96; // Slower fade (approx 1.5s visual persistence)
+         }
+         ctx.globalAlpha = 1;
+       }
+    }
+    if (!motion.matches && (mouse.x > -9000 || highlights.length)) scheduleRender();
+  }
+
+  window.addEventListener('resize', () => { resize(); scheduleRender(); });
+  new ResizeObserver(() => { resize(); scheduleRender(); }).observe(hero);
   new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
-    if (!visible) { selection = null; if (overlay.width) overlayCtx.clearRect(0, 0, overlay.width, overlay.height); }
-    schedule();
+    if (!visible) { mouse.x = -9999; highlights = []; }
+    scheduleRender();
   }).observe(hero);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) release(); else schedule(); });
-  new MutationObserver(resize).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  motion.addEventListener('change', () => {
-    selection = null;
-    overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
-    schedule();
+  document.addEventListener('visibilitychange', scheduleRender);
+  new MutationObserver(scheduleRender).observe(document.documentElement, {
+    attributes: true, attributeFilter: ['data-theme'],
   });
-  image.onload = resize;
-  image.src = '/images/wsi_big.webp';
+  motion.addEventListener('change', () => {
+    mouse.x = -9999;
+    highlights = [];
+    scheduleRender();
+  });
+  img.onload = () => {
+    imgLoaded = true;
+    resize();
+    scheduleRender();
+  };
+  img.src = '/images/wsi_big.webp';
 }
 
 // ─── Scroll Reveal ───

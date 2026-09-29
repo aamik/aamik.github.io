@@ -35,7 +35,7 @@ Checkup progress, verification and editorial notes: [TODO.md](TODO.md).
 - **Shimmer divider**: Animated 4-color gradient bar between hero and content
 
 ### Performance
-- **WebP hero image**: approximately 1.6 MB; cached canvas background, bounded selection growth capped at 30fps, and no redraws once settled; static with reduced motion
+- **WebP hero image**: approximately 1.6 MB; original boundary-sensitive tissue selection with heatmap colours and a short opacity fade-in; canvas rests after the pointer leaves and the overlay fades, and stays static with reduced motion
 - **Gallery JPGs**: Lazy-loaded; individual sizes vary
 - **Small navigation icon**: Uses the existing 32px asset rather than the large PNG
 - **Lazy loading** on all gallery images
