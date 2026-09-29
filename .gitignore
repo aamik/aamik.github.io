@@ -6,3 +6,9 @@ dist/
 .env.test.local
 .env.production.local
 .DS_Store
+
+.agent/*
+.agents/*
+AGENTS.md
+TODO.md
+

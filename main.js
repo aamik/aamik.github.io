@@ -4,25 +4,6 @@
    gentle mouse-proximity response, professional polish
    ═══════════════════════════════════════════════════════ */
 
-// ─── Typewriter ───
-class Typewriter {
-  constructor(el, text, speed = 20) {
-    this.el = el;
-    this.text = text;
-    this.speed = speed;
-    this.i = 0;
-  }
-  start() {
-    const tick = () => {
-      if (this.i <= this.text.length) {
-        this.el.textContent = this.text.slice(0, this.i++);
-        setTimeout(tick, this.speed);
-      }
-    };
-    setTimeout(tick, 900);
-  }
-}
-
 // ─── Magic Wand WSI Interaction ───
 // Loads the big WSI image, computes an Otsu threshold for tissue detection,
 // and implements a "magic wand" style flood-fill selection on mouse hover.
@@ -30,16 +11,21 @@ function initMagicWand() {
   const canvas = document.getElementById('bioCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
   const hero = document.getElementById('hero');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let frame = 0;
+  let visible = true;
+  function scheduleRender() {
+    if (!frame && visible && !document.hidden && imgLoaded) frame = requestAnimationFrame(render);
+  }
   const img = new Image();
-  img.src = '/images/wsi_big.webp';
 
   let width, height; // canvas dimensions
   let offCanvas, offCtx;
   let grid = []; // 2D array of { isTissue, x, y }
   let gridW, gridH;
-  let scaleRatio = 1; // offscreen image / real image
-  const CELL_SIZE = 12; // Size of grid cells in screen pixels (approx)
   
   // State
   let highlights = []; // { c, r, alpha }
@@ -125,6 +111,8 @@ function initMagicWand() {
 
   // Mouse interactivity
   hero.addEventListener('mousemove', e => {
+    if (!imgLoaded || motion.matches || !pointer.matches) return;
+    if (!offCanvas) initGrid();
     const rect = hero.getBoundingClientRect();
     const nx = e.clientX - rect.left;
     const ny = e.clientY - rect.top;
@@ -136,6 +124,7 @@ function initMagicWand() {
     }
     mouse.x = nx;
     mouse.y = ny;
+    scheduleRender();
   }, { passive: true });
   
   hero.addEventListener('mouseleave', () => {
@@ -159,8 +148,9 @@ function initMagicWand() {
     visited.add(`${sx},${sy}`);
     let added = 0;
 
-    while (queue.length > 0 && added < limit) {
-      const [cx, cy, dist] = queue.shift();
+    let head = 0;
+    while (head < queue.length && added < limit) {
+      const [cx, cy, dist] = queue[head++];
       
       highlights.push({ c: cx, r: cy, alpha: 0.85 + Math.random() * 0.15 });
       added++;
@@ -220,6 +210,7 @@ function initMagicWand() {
   }
 
   function render() {
+    frame = 0;
     ctx.clearRect(0, 0, width, height);
 
     // Draw background image
@@ -281,31 +272,36 @@ function initMagicWand() {
          ctx.globalAlpha = 1;
        }
     }
-    requestAnimationFrame(render);
+    if (!motion.matches && (mouse.x > -9000 || highlights.length)) scheduleRender();
   }
 
-  window.addEventListener('resize', resize);
-  
+  window.addEventListener('resize', () => { resize(); scheduleRender(); });
+  new ResizeObserver(() => { resize(); scheduleRender(); }).observe(hero);
+  new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (!visible) { mouse.x = -9999; highlights = []; }
+    scheduleRender();
+  }).observe(hero);
+  document.addEventListener('visibilitychange', scheduleRender);
+  new MutationObserver(scheduleRender).observe(document.documentElement, {
+    attributes: true, attributeFilter: ['data-theme'],
+  });
+  motion.addEventListener('change', () => {
+    mouse.x = -9999;
+    highlights = [];
+    scheduleRender();
+  });
   img.onload = () => {
     imgLoaded = true;
-    initGrid();
     resize();
+    scheduleRender();
   };
-  
-  if (img.complete) {
-    imgLoaded = true;
-    initGrid();
-    resize();
-  } else {
-    // If not cached, it might take a moment.
-    // We rely on onload.
-  }
-
-  requestAnimationFrame(render);
+  img.src = '/images/wsi_big.webp';
 }
 
 // ─── Scroll Reveal ───
 function initScrollReveal() {
+  document.documentElement.classList.add('reveal-ready');
   const els = document.querySelectorAll('[data-reveal]');
   if (!els.length) return;
   const observer = new IntersectionObserver(
@@ -345,6 +341,13 @@ function initHamburger() {
     btn.setAttribute('aria-expanded', String(!expanded));
     menu.classList.toggle('open');
   });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+      btn.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('open');
+      btn.focus();
+    }
+  });
   document.querySelectorAll('.nav__link').forEach(l => {
     l.addEventListener('click', () => {
       btn.setAttribute('aria-expanded', 'false');
@@ -357,15 +360,18 @@ function initHamburger() {
 function initThemeToggle() {
   const btn = document.querySelector('.nav__theme-toggle');
   if (!btn) return;
-  const stored = localStorage.getItem('theme');
+  let stored;
+  try { stored = localStorage.getItem('theme'); } catch { /* Storage may be disabled. */ }
   if (stored === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
   }
+  btn.setAttribute('aria-pressed', String(stored === 'dark'));
   btn.addEventListener('click', () => {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const next = isDark ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
+    btn.setAttribute('aria-pressed', String(!isDark));
+    try { localStorage.setItem('theme', next); } catch { /* Theme still works for this visit. */ }
   });
 }
 
@@ -373,16 +379,6 @@ function hideIfMissing(selector, value) {
   if (value) return;
   document.querySelectorAll(selector).forEach(el => {
     el.remove();
-  });
-}
-
-// ─── Smooth Scroll ───
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
   });
 }
 
@@ -401,21 +397,11 @@ function initClickableCards() {
 
 // ─── Init ───
 document.addEventListener('DOMContentLoaded', () => {
-  const twEl = document.getElementById('typewriter');
-  if (twEl) {
-    new Typewriter(
-      twEl,
-      "I build machine learning systems for medical imaging and understand the biology behind them.",
-      24
-    ).start();
-  }
-
   initMagicWand();
   initScrollReveal();
   initScrollspy();
   initHamburger();
   initThemeToggle();
-  initSmoothScroll();
   initClickableCards();
 
   // Handwritten notebook date, auto-set to today

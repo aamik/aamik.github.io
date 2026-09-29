@@ -2,6 +2,8 @@
 
 Single-page portfolio site for a medical AI engineer & molecular biologist.
 
+Checkup progress, verification and editorial notes: [TODO.md](TODO.md).
+
 ## Tech Stack
 
 - **Vite** — build tool, dev server, asset optimization
@@ -14,7 +16,7 @@ Single-page portfolio site for a medical AI engineer & molecular biologist.
 .
 ├── index.html          # Single-page structure and metadata
 ├── style.css           # Full design system
-├── main.js             # Canvas animation, typewriter, scroll reveals, theme toggle
+├── main.js             # Canvas interaction, scroll reveals, theme toggle
 ├── public/
 │   ├── images/         # Optimized assets
 │   ├── robots.txt      # Crawler policy
@@ -29,13 +31,13 @@ Single-page portfolio site for a medical AI engineer & molecular biologist.
 ### Visual Design
 - **4-color domain system**: Teal (AI/ML), Forest Green (Biomedical), Gold (Infrastructure), Purple (Analytical)
 - **Notebook texture**: Ruled lines, margin lines, H&E stain colors, handwritten dates
-- **WSI canvas animation**: Interactive whole-slide image with flood-fill tissue detection
+- **WSI canvas interaction**: TCGA-COAD tissue background with illustrative hover-driven flood fill; not model output
 - **Shimmer divider**: Animated 4-color gradient bar between hero and content
 
 ### Performance
-- **WebP hero image**: 1.6 MB vs 11 MB PNG original (quality 95, lossless-equivalent)
-- **Gallery JPGs**: All resized to ≤600px, 44–128 KB each
-- **Total dist: ~3.9 MB** including all images
+- **WebP hero image**: approximately 1.6 MB; canvas rests when idle, off-screen or hidden, and stays static with reduced motion
+- **Gallery JPGs**: Lazy-loaded; individual sizes vary
+- **Small navigation icon**: Uses the existing 32px asset rather than the large PNG
 - **Lazy loading** on all gallery images
 
 ### Accessibility
@@ -48,8 +50,8 @@ Single-page portfolio site for a medical AI engineer & molecular biologist.
 - **No backend, no cookies, no forms, no analytics**
 - **Email obfuscation**: Base64-encoded in env, decoded at runtime (`atob()`)
 - **Frontend env is not secret**: `VITE_*` values are embedded into the built site if used
-- **Browser-enforced CSP**: Locks scripts to self, limits fonts to Google Fonts, disables plugin objects
-- **Referrer policy**: `strict-origin-when-cross-origin`
+- **CSP**: No Content-Security-Policy is currently configured
+- **Referrer policy intent**: `strict-origin-when-cross-origin` in `_headers`; GitHub Pages does not enforce that file
 - **Permissions-Policy intent**: Camera, microphone, geolocation denied via `_headers` on hosts that support it
 - **robots.txt**: Blocks GPTBot, CCBot, anthropic-ai, Google-Extended
 

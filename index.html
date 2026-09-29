@@ -38,17 +38,17 @@
 </head>
 
 <body>
-  <a href="#education" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link">Skip to content</a>
 
   <!-- ═══════════ NAV ═══════════ -->
   <nav id="nav" class="nav" aria-label="Main navigation">
     <div class="nav__inner">
-      <a href="#hero" class="nav__logo"><img src="/images/favicon.png" alt="Logo"
+      <a href="#hero" class="nav__logo"><img src="/images/favicon-32.png" alt="" width="32" height="32"
           style="width: 1.2em; height: 1.2em; vertical-align: middle; margin-right: 4px;" /> <span>AM</span></a>
-      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span><span></span>
       </button>
-      <ul class="nav__links">
+      <ul class="nav__links" id="nav-links">
         <li><a href="#education" class="nav__link">Education</a></li>
         <li><a href="#thesis" class="nav__link">Thesis</a></li>
         <li><a href="#experience" class="nav__link">Experience</a></li>
@@ -78,9 +78,10 @@
     </div>
   </nav>
 
+  <main id="main" tabindex="-1">
   <!-- ═══════════ HERO ═══════════ -->
   <section id="hero" class="hero">
-    <canvas class="hero__canvas" id="bioCanvas"></canvas>
+    <canvas class="hero__canvas" id="bioCanvas" aria-hidden="true"></canvas>
 
     <!-- Kept for layout/styling consistency -->
     <div class="hero__notebook-margin"></div>
@@ -104,15 +105,15 @@
 
         <div class="hero__tags">
           <a href="#skills"><span class="tag tag--tech">Medical Image Analysis</span></a>
-          <a href="#skills"><span class="tag tag--tech">PyTorch</span></a>
-          <a href="#skills"><span class="tag tag--tech">Multiple-Instance Learning</span></a>
-          <a href="#skills"><span class="tag tag--bio">Digital Pathology</span></a>
-          <a href="#skills"><span class="tag tag--infra">Linux &amp; Infrastructure</span></a>
-          <a href="#skills"><span class="tag tag--sci">Reproducible Research</span></a>
+          <a href="#skills"><span class="tag tag--bio">ML Systems</span></a>
+          <a href="#skills"><span class="tag tag--infra">Multiple-Instance Learning</span></a>
+          <a href="#skills"><span class="tag tag--sci">Digital Pathology</span></a>
+          <a href="#skills"><span class="tag tag--tech">Linux &amp; Infrastructure</span></a>
+          <a href="#skills"><span class="tag tag--bio">Reproducible Research</span></a>
         </div>
 
         <div class="hero__cta">
-          <a href="#projects" class="btn btn--ghost">
+          <a href="#projects" class="btn btn--primary">
             View projects
           </a>
 
@@ -275,82 +276,29 @@
           </div>
         </div>
 
-        <div class="thesis-feature__methods" data-reveal>
-          <h4 class="thesis-feature__methods-title">Initial patient-level results</h4>
-          <div class="thesis-results" tabindex="0" role="region"
-            aria-label="Internal test results, scroll horizontally on small screens">
-            <table>
-              <caption>Internal test: 33 patients, including 12 SARIFA-positive cases.</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Method</th>
-                  <th scope="col">AUROC (95% CI)</th>
-                  <th scope="col">AUPRC</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Fixed top-1%, original tile cap</th>
-                  <td>0.849 <span>(0.683–0.956)</span></td>
-                  <td>0.821</td>
-                </tr>
-                <tr>
-                  <th scope="row">Fixed top-1%, uncapped</th>
-                  <td>0.853 <span>(0.687–0.956)</span></td>
-                  <td>0.818</td>
-                </tr>
-                <tr>
-                  <th scope="row">Plain ABMIL, uncapped</th>
-                  <td>0.806 <span>(0.615–0.940)</span></td>
-                  <td>0.791</td>
-                </tr>
-                <tr>
-                  <th scope="row">Annotation-ranking ABMIL, uncapped</th>
-                  <td>0.813 <span>(0.631–0.933)</span></td>
-                  <td>0.776</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="thesis-results__note">
-            AUROC measures ranking across classes; AUPRC summarizes positive-case retrieval. Higher is better,
-            but neither is classification accuracy. Intervals use 1,000 patient-bootstrap resamples;
-            ABMIL results use five-seed probability ensembles. The original cap limited negative slides
-            to 5,000 tiles; the uncapped analysis includes all eligible tissue tiles.
-          </p>
-          <p class="thesis-feature__body">
-            <strong>The simpler baseline remained competitive.</strong> Both ABMIL ensembles reached validation
-            AUROC 0.953, but their advantage did not carry over to test. Annotation ranking concentrated more
-            attention on annotated tissue without a clear gain in patient-level discrimination. The cohort is
-            small, and paired uncertainty intervals do not establish superiority. These are secondary model
-            comparisons on the same internal test cohort first evaluated with the fixed baseline, not independent
-            clinical validation.
-          </p>
-        </div>
+        <p class="thesis-feature__body">
+          Fixed top-k pooling of the highest-scoring 1% of tiles achieved <strong>0.85 AUROC</strong>
+          on the internal test set of 33 patients, remaining competitive with learned attention-based
+          pooling (ABMIL). This small-cohort comparison is not independent clinical validation.
+        </p>
 
         <div class="thesis-feature__methods" data-reveal>
           <h4 class="thesis-feature__methods-title">Engineering and study design</h4>
           <div class="thesis-methods-grid">
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span><strong>Reproducible experiments.</strong> Stage contracts, fixed patient splits
-                (141 training / 28 validation / 33 test), hashed inputs and checkpoints, and structured results.</span>
+              <span><strong>Reproducible comparisons.</strong> Fixed patient splits, hashed inputs and
+                checkpoints, and stage contracts; uncapped tissue sampling for the main ABMIL comparison.</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span><strong>Controlled comparisons.</strong> Removing the negative-slide tile cap expanded the
-                field from 4.2 to 10.5 million tiles and removed a label-linked cap on bag size before the
-                main ABMIL comparison.</span>
+              <span><strong>Pathology-informed evaluation.</strong> Pathologist review, patient-level
+                error analysis, and spatial checks against annotated tissue.</span>
             </div>
             <div class="thesis-method">
               <span class="thesis-method__dot"></span>
-              <span><strong>Pathology-informed evaluation.</strong> Pathologist review, patient-level error
-                analysis, and checks of annotation burden and spatial localization alongside headline metrics.</span>
-            </div>
-            <div class="thesis-method">
-              <span class="thesis-method__dot"></span>
-              <span><strong>Practical implementation.</strong> PyTorch, OpenSlide, NumPy, Shapely and Parquet;
-                reusable tile embeddings, bounded-memory processing, and recorded verification checks.</span>
+              <span><strong>Practical implementation.</strong> PyTorch, OpenSlide, NumPy, Shapely and
+                Parquet; reusable embeddings and bounded-memory processing across 10.5 million tiles.</span>
             </div>
           </div>
         </div>
@@ -382,18 +330,15 @@
         <article class="card card--tech" data-reveal>
           <div class="card__accent"></div>
           <h3 class="card__title">Applied ML &amp; Data Science</h3>
-          <p class="card__meta">ML systems · Data engineering · Evaluation · Computational pathology</p>
+          <p class="card__meta">ML systems · Evaluation · CPath</p>
           <ul class="card__list">
             <li>Broad ML/DL/AI foundation, applied to computer vision, predictive modelling, and
-              biomedical imaging. Computational pathology is my current focus.</li>
+              biomedical imaging.</li>
             <li>Python (SciPy, PyTorch) on Linux, with reproducible evaluation runs, versioned datasets, and
               traceable experiment artifacts.</li>
-            <li>Data engineering and infrastructure: data pipelines, databases, GPU workflows, Docker/K3s/Hypervisors,
-              and
-              CI/CD. I self-host and maintain my own servers and networking.</li>
-            <li>Comfortable across the stack, from data and models to APIs and web front ends. Built with
-              production in mind: observability, known failure modes, and real deployment constraints.</li>
-            <li>Lifelong computer enthusiast, so I pick up new tools and systems quickly.</li>
+            <li>Lifelong computer enthusiast with hands-on experience across data pipelines, GPU workflows,
+              APIs and web front ends. I self-host servers and networking, using containers, virtualisation
+              and CI/CD with attention to observability and deployment constraints.</li>
           </ul>
         </article>
 
@@ -414,7 +359,7 @@
         <article class="card card--sci" data-reveal>
           <div class="card__accent"></div>
           <h3 class="card__title">Research Practice</h3>
-          <p class="card__meta">Study design · Scientific communication · Interdisciplinary work</p>
+          <p class="card__meta">Interdisciplinary</p>
           <ul class="card__list">
             <li>Hypothesis-driven study design: locked test sets, metrics chosen for what they can and cannot
               conclude, and results reported with their uncertainty.</li>
@@ -449,7 +394,10 @@
             live dashboard for exploring epidemic dynamics under policy changes.
           </p>
           <a href="https://github.com/aamik/abm_city" target="_blank" rel="noopener noreferrer"
-            class="card__link">GitHub →</a>
+            class="card__link"><svg width="16" height="16" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+            </svg> GitHub →</a>
         </article>
 
         <article class="card card--tech-sci" data-reveal>
@@ -462,7 +410,10 @@
             a single-file training script adapted from CleanRL for reproducible experimentation.
           </p>
           <a href="https://github.com/aamik/rl_car_racing" target="_blank" rel="noopener noreferrer"
-            class="card__link">GitHub →</a>
+            class="card__link"><svg width="16" height="16" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+            </svg> GitHub →</a>
         </article>
 
         <!-- Future project cards go here.
@@ -471,7 +422,10 @@
           <h3 class="card__title">Project title</h3>
           <p class="card__meta">Domain · Focus</p>
           <p class="card__body">Short publish-ready description.</p>
-          <a href="https://github.com/aamik/project-name" target="_blank" rel="noopener noreferrer" class="card__link">GitHub →</a>
+          <a href="https://github.com/aamik/project-name" target="_blank" rel="noopener noreferrer" class="card__link"><svg width="16" height="16" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+            </svg> GitHub →</a>
         </article>
         -->
       </div>
@@ -669,8 +623,8 @@
       <div class="contact__content">
         <p class="section__kicker">Contact</p>
         <h2 class="section__title">Let's talk</h2>
-        <p class="contact__body">If you're building biomedical AI and care about reliable infra,
-          I'm happy to connect. Available in Finnish and English.</p>
+        <p class="contact__body">I'm open to roles and collaborations in applied ML, software engineering and scientific research.
+          If my background fits what you're working on, I'd be happy to talk. Available in Finnish and English.</p>
         <p class="contact__closing">
           Nulla dies sine linea.
         </p>
@@ -699,15 +653,20 @@
         </div>
       </div>
       <div class="contact__visual">
-        <img src="/images/flip_single.png" class="contact__accent" aria-hidden="true" alt="" />
+        <img src="/images/flip_single.png" class="contact__accent" loading="lazy" decoding="async" aria-hidden="true" alt="" />
       </div>
     </div>
   </section>
+
+  </main>
 
   <footer class="footer">
     <div class="container">
       <p>&copy; 2026 Aapo Mikkola · Built with <a href="https://vite.dev" target="_blank"
           rel="noopener noreferrer">Vite</a></p>
+      <p class="footer__credit">Background: H&amp;E tissue section from the
+        <a href="https://www.cancer.gov/tcga">TCGA Research Network</a>,
+        TCGA-COAD (colon adenocarcinoma). Red overlay: illustrative interaction, not model output.</p>
     </div>
   </footer>
 
