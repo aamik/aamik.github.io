@@ -444,6 +444,32 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
+
+/* Darker gradient stops keep the colour fade readable on the light card. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .hero__role-highlight {
+    background: linear-gradient(120deg, #086563 0%, #086563 45%, #795708 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero__role-highlight:nth-child(3) {
+    background-image: linear-gradient(120deg, #24563F, #38613A);
+  }
+  [data-theme="dark"] .hero__role-highlight {
+    background-image: linear-gradient(120deg, #67DAD5 0%, #67DAD5 45%, #E8B840 100%);
+  }
+  [data-theme="dark"] .hero__role-highlight:nth-child(3) {
+    background-image: linear-gradient(120deg, #8CDBAA, #BED58A);
+  }
+}
+@media (forced-colors: active) {
+  .hero__role-highlight {
+    background: none !important;
+    -webkit-text-fill-color: CanvasText;
+  }
+}
+
 .hero__role-connector {
   color: var(--ink-muted);
   margin: 0 0.4rem;
