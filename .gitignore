@@ -12,3 +12,13 @@ dist/
 AGENTS.md
 TODO.md
 
+
+# Additional local agent state and private context
+.codex/
+.claude/
+.opencode/
+agents.md
+CLAUDE.md
+SEC_*
+.env.*
+!.env.example
