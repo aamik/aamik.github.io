@@ -553,12 +553,10 @@ ul { list-style: none; }
 /* Remove old dot */
 .tag::before { display: none; }
 
-.tag:hover {
-  transform: translateY(-3px) scale(1.02);
-  background: #FFF;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+@media (hover: hover) and (pointer: fine) {
+  .hero__tags .tag:hover { transform: translateY(-1px); background: var(--surface); }
 }
-[data-theme="dark"] .tag:hover { background: #2A2A35; }
+.hero__tags a:active .tag { background: color-mix(in srgb, var(--accent-tech) 10%, var(--surface)); }
 
 
 /* Contact Accent Cell Image */
@@ -663,7 +661,21 @@ ul { list-style: none; }
   overflow: hidden;
   border: 1px solid transparent; /* Ready for domain colors */
 }
-.card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
+/* Tint sits behind the text and never intercepts links or touch gestures. */
+.card::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--accent-tech) 9%, transparent),
+    color-mix(in srgb, var(--accent-bio) 6%, transparent) 35%,
+    color-mix(in srgb, var(--accent-infra) 6%, transparent) 65%,
+    color-mix(in srgb, var(--accent-sci) 9%, transparent));
+  opacity: 0; transition: opacity 220ms ease;
+}
+.card > :not(.card__accent) { position: relative; }
+.card:focus-within::before, .card:active::before { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .card:hover::before { opacity: 1; }
+}
 .card__accent {
   position: absolute; top: 0; left: 0; width: 4px; height: 100%;
   background: var(--card-accent-bg, linear-gradient(to bottom, var(--accent), var(--accent-warm)));
@@ -932,7 +944,7 @@ ul { list-style: none; }
   100% { background-position: 200% center; }
 }
 .reveal-ready [data-reveal] {
-  opacity: 0; transform: translateY(14px);
+  opacity: 0; transform: translateY(8px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .reveal-ready [data-reveal].revealed { opacity: 1; transform: translateY(0); }
@@ -974,7 +986,15 @@ ul { list-style: none; }
 [data-theme="dark"] .btn--primary { background: #22D3EE; border-color: #22D3EE; color: #0B0B15; }
 [data-theme="dark"] .btn--primary:hover { background: #67E8F9; border-color: #67E8F9; }
 .hero__tags { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.hero__tags .tag { height: 100%; min-height: 44px; cursor: pointer; }
+.hero__tags { gap: 0.5rem 0.65rem; margin-top: 1.25rem; margin-bottom: 1.75rem; }
+.hero__tags .tag {
+  height: 100%; min-height: 44px; cursor: pointer;
+  font-size: 0.76rem; line-height: 1.4; padding: 0.35rem 0.65rem;
+  border-radius: 10px; border-left-width: 3px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.04);
+}
+.hero__tags a:focus-visible { border-radius: 10px; }
+.hero__tags a:focus-visible .tag { background: color-mix(in srgb, var(--accent-tech) 10%, var(--surface)); }
 .nav__theme-toggle, .nav__hamburger { min-width: 44px; min-height: 44px; }
 .card__link svg { vertical-align: -0.15em; }
 .footer__credit { max-width: 760px; margin: 0.6rem auto 0; }
@@ -982,7 +1002,7 @@ ul { list-style: none; }
 @media (max-width: 480px) {
   .hero__content { padding: 1.5rem 1rem; }
   .hero__tags { gap: 0.6rem; }
-  .hero__tags .tag { font-size: 0.75rem; padding: 0.4rem 0.5rem; overflow-wrap: anywhere; }
+  .hero__tags .tag { font-size: 0.72rem; padding: 0.3rem 0.5rem; overflow-wrap: anywhere; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-ready [data-reveal] { opacity: 1; transform: none; }
@@ -992,4 +1012,13 @@ ul { list-style: none; }
 @media print {
   .reveal-ready [data-reveal], .hero__name, .hero__cta { opacity: 1; transform: none; }
   .hero { min-height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__tags .tag:hover, .gallery__item:hover, .gallery__item:hover img,
+  .btn:hover, .contact__icon:hover, #contact:hover .contact__accent { transform: none; }
+}
+@media (forced-colors: active) {
+  .card::before { display: none; }
+  .hero__tags .tag { border-color: ButtonText; }
 }

@@ -31,11 +31,11 @@ Checkup progress, verification and editorial notes: [TODO.md](TODO.md).
 ### Visual Design
 - **4-color domain system**: Teal (AI/ML), Forest Green (Biomedical), Gold (Infrastructure), Purple (Analytical)
 - **Notebook texture**: Ruled lines, margin lines, H&E stain colors, handwritten dates
-- **WSI canvas interaction**: TCGA-COAD tissue background with illustrative hover-driven flood fill; not model output
+- **WSI canvas interaction**: TCGA-COAD tissue background with smooth, illustrative heatmap selection on pointer hover or touch; not model output
 - **Shimmer divider**: Animated 4-color gradient bar between hero and content
 
 ### Performance
-- **WebP hero image**: approximately 1.6 MB; canvas rests when idle, off-screen or hidden, and stays static with reduced motion
+- **WebP hero image**: approximately 1.6 MB; cached canvas background, bounded selection growth capped at 30fps, and no redraws once settled; static with reduced motion
 - **Gallery JPGs**: Lazy-loaded; individual sizes vary
 - **Small navigation icon**: Uses the existing 32px asset rather than the large PNG
 - **Lazy loading** on all gallery images
