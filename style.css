@@ -127,18 +127,20 @@ ul { list-style: none; }
   padding: 4.5rem 0;
   background-color: var(--bg);
   background-image:
-    /* Original paper grain, rasterized once to avoid repeated SVG filter work. */
+    /* A subtle translucent wash softens the cached notebook grain. */
+    linear-gradient(color-mix(in srgb, var(--bg) 22%, transparent), color-mix(in srgb, var(--bg) 22%, transparent)),
     url("/images/paper-grain.png"),
     repeating-linear-gradient(transparent, transparent 31px, var(--ruled-line) 31px, var(--ruled-line) 32px);
-  background-size: 200px 200px, 100% 32px;
+  background-size: auto, 200px 200px, 100% 32px;
   transition: background-color var(--transition);
 }
 .section--alt {
   background-color: var(--bg-alt);
   background-image:
+    linear-gradient(color-mix(in srgb, var(--bg-alt) 22%, transparent), color-mix(in srgb, var(--bg-alt) 22%, transparent)),
     url("/images/paper-grain.png"),
     repeating-linear-gradient(transparent, transparent 31px, var(--ruled-line) 31px, var(--ruled-line) 32px);
-  background-size: 200px 200px, 100% 32px;
+  background-size: auto, 200px 200px, 100% 32px;
 }
 
 /* Handwritten notebook date */

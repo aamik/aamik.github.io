@@ -39,6 +39,8 @@ function initMagicWand() {
   const background = document.createElement('canvas');
   let backgroundDirty = true;
   let lastFill = -Infinity;
+  let selection = [];
+  let selectionX = -9999, selectionY = -9999, selectionLimit = 0;
   let touchUntil = 0;
   let touchActive = false;
   let gridW, gridH;
@@ -129,6 +131,7 @@ function initMagicWand() {
       dwellStart = performance.now();
       dwellPos = { x: nx, y: ny };
     }
+    if (mouse.x < -9000) selectionLimit = 0;
     touchActive = e.pointerType === 'touch';
     touchUntil = touchActive ? performance.now() + 1200 : 0;
     mouse.x = nx;
@@ -149,14 +152,20 @@ function initMagicWand() {
     if (e.pointerType === 'touch') { touchUntil = performance.now() + 1200; scheduleRender(); }
   }, { passive: true });
 
-  function triggerFloodFill(sx, sy) {
+  function triggerFloodFill(sx, sy, limit, tolerance = 50, allowFallback = true) {
     const startLum = grid[sy * gridW + sx];
     const targetIsTissue = startLum < threshold;
     if (++visitGeneration === 0xffffffff) { visited.fill(0); visitGeneration = 1; }
     const dwellMs = dwellStart > 0 ? performance.now() - dwellStart : 0;
     const dwellGrowth = dwellMs > DWELL_THRESHOLD ? Math.min((dwellMs - DWELL_THRESHOLD) / 75, 800) : 0;
     const maxDist = 120 + Math.floor(dwellGrowth);
-    const limit = (touchActive ? 1200 : 600) + Math.floor(dwellGrowth * 16);
+    // Restart the same random sequence for a seed: growing a stationary mask
+    // extends the existing outline instead of choosing a new outline every tick.
+    let randomState = ((sy * gridW + sx + 1) * 2654435761) >>> 0;
+    const random = () => {
+      randomState = (Math.imul(randomState, 1664525) + 1013904223) >>> 0;
+      return randomState / 4294967296;
+    };
     const born = performance.now();
     let head = 0, tail = 1, added = 0;
     queue[0] = sy * gridW + sx;
@@ -166,8 +175,9 @@ function initMagicWand() {
       const id = queue[head];
       const dist = distances[head++];
       const cx = id % gridW, cy = Math.floor(id / gridW);
-      const alpha = 0.85 + Math.random() * 0.15;
+      const alpha = 0.85 + random() * 0.15;
       const previous = highlights.get(id);
+      selection.push(id);
       highlights.set(id, {
         c: cx, r: cy, alpha, born: previous ? previous.born : born, refreshed: born,
         color: palette[Math.round(63 * (1 - Math.min(1, dist / Math.max(12, Math.sqrt(limit)))))],
@@ -182,16 +192,42 @@ function initMagicWand() {
         const next = ny * gridW + nx;
         if (visited[next] === visitGeneration) continue;
         const lum = grid[next];
-        if ((lum < threshold) === targetIsTissue && Math.abs(lum - startLum) < 50) {
+        if ((lum < threshold) === targetIsTissue && Math.abs(lum - startLum) < tolerance) {
           visited[next] = visitGeneration;
-          if (Math.random() > 0.1) {
+          if (random() > 0.1) {
             queue[tail] = next;
             distances[tail++] = dist + 1;
           }
         }
       }
     }
+    // Tiny enclosed patches get one bounded retry with a wider luminance band.
+    // Classification still prevents the selection spilling into the other tissue class.
+    if (allowFallback && added < 80) {
+      const widened = triggerFloodFill(sx, sy, limit, 80, false);
+      if (widened < 80) {
+        // For an isolated bubble, try one nearby patch of the same class.
+        // Search only a 33px square, once per changed selection, never each frame.
+        search: for (let radius = 2; radius <= 16; radius++) {
+          for (let dy = -radius; dy <= radius; dy++) {
+            for (let dx = -radius; dx <= radius; dx++) {
+              if (Math.max(Math.abs(dx), Math.abs(dy)) !== radius) continue;
+              const x = sx + dx, y = sy + dy;
+              if (x < 1 || x >= gridW - 1 || y < 1 || y >= gridH - 1) continue;
+              const id = y * gridW + x;
+              if (visited[id] === visitGeneration || (grid[id] < threshold) !== targetIsTissue || Math.abs(grid[id] - startLum) >= 80) continue;
+              const neighbors = [id - 1, id + 1, id - gridW, id + gridW];
+              if (neighbors.filter(i => (grid[i] < threshold) === targetIsTissue).length < 3) continue;
+              triggerFloodFill(x, y, limit, 80, false);
+              break search;
+            }
+          }
+        }
+      }
+    }
+    return added;
   }
+
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -261,7 +297,26 @@ function initMagicWand() {
        const gy = Math.floor(anaY / blockSize);
 
        if (gx >= 0 && gx < gridW && gy >= 0 && gy < gridH) {
-         triggerFloodFill(gx, gy);
+         const cellScale = renderParams.scale / analysisScale;
+         const moved = Math.hypot(gx - selectionX, gy - selectionY) * cellScale > 4;
+         const growth = dwellStart > 0 ? Math.max(0, Math.min((now - dwellStart - DWELL_THRESHOLD) / 75, 800)) : 0;
+         // Grow in small steps, avoiding a fresh traversal for every frame.
+         const limit = (touchActive ? 1200 : 600) + Math.floor(growth * 16 / 120) * 120;
+         if (moved || limit !== selectionLimit) {
+           if (moved) {
+             // Keep a brief trail, rather than accumulating seconds of old selections.
+             for (const h of highlights.values()) h.refreshed = Math.min(h.refreshed, now - 1000);
+           }
+           selection = [];
+           if (moved) { selectionX = gx; selectionY = gy; }
+           selectionLimit = limit;
+           triggerFloodFill(selectionX, selectionY, limit);
+         } else {
+           for (const id of selection) {
+             const h = highlights.get(id);
+             if (h) h.refreshed = now;
+           }
+         }
          lastFill = now;
        }
     }
@@ -299,7 +354,7 @@ function initMagicWand() {
   new ResizeObserver(() => { resize(); scheduleRender(); }).observe(hero);
   new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
-    if (!visible) { mouse.x = -9999; highlights.clear(); }
+    if (!visible) { mouse.x = -9999; highlights.clear(); selection = []; selectionLimit = 0; }
     scheduleRender();
   }).observe(hero);
   document.addEventListener('visibilitychange', scheduleRender);
