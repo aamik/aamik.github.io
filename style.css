@@ -127,8 +127,8 @@ ul { list-style: none; }
   padding: 4.5rem 0;
   background-color: var(--bg);
   background-image:
-    /* Subtle paper grain texture */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+    /* Original paper grain, rasterized once to avoid repeated SVG filter work. */
+    url("/images/paper-grain.png"),
     repeating-linear-gradient(transparent, transparent 31px, var(--ruled-line) 31px, var(--ruled-line) 32px);
   background-size: 200px 200px, 100% 32px;
   transition: background-color var(--transition);
@@ -136,7 +136,7 @@ ul { list-style: none; }
 .section--alt {
   background-color: var(--bg-alt);
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+    url("/images/paper-grain.png"),
     repeating-linear-gradient(transparent, transparent 31px, var(--ruled-line) 31px, var(--ruled-line) 32px);
   background-size: 200px 200px, 100% 32px;
 }
