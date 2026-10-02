@@ -873,6 +873,7 @@ ul { list-style: none; }
 }
 @media (max-width: 768px) {
   .gallery { grid-template-columns: repeat(2, 1fr); }
+  #interests .gallery__item:nth-child(n+9) { display: none; }
 }
 @media (max-width: 480px) {
   .gallery { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
